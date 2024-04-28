@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_PATIENTS 100
+#define MAX_LENGTH 50
+#define FILENAME "patients.csv"
+
+struct Patient {
+    char name[MAX_LENGTH];
+    int age;
+    char gender[MAX_LENGTH];
+};
+
+void addPatientToFile(struct Patient patient) {
+    FILE *file = fopen(FILENAME, "a");
+    if (file == NULL) {
+        printf("Error opening file.\n");
+        return;
+    }
+
+    fprintf(file, "%s,%d,%s\n", patient.name, patient.age, patient.gender);
+    fclose(file);
+}
+
+void add_patient(){
+    struct Patient patient;
+    printf("Enter patient name: \n");
+    fgets(patient.name, sizeof(patient.name), stdin);
+    patient.name[strcspn(patient.name, "\n")] = '\0'; // Remove newline character if present
+    printf("Enter patient age: \n");
+    scanf("%d", &patient.age);
+    while (getchar() != '\n'); // Clear input buffer
+    printf("Enter patient gender: \n");
+    fgets(patient.gender, sizeof(patient.gender), stdin);
+    patient.gender[strcspn(patient.gender, "\n")] = '\0'; // Remove newline character if present
+
+    addPatientToFile(patient);
+    printf("Patient added successfully.\n");
+}
