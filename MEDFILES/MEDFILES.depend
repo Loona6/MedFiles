@@ -1,0 +1,90 @@
+# depslib dependency file v1.0
+1715017815 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\add appointment.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+
+1715017401 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\add patient.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+
+1715019321 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\login page.c
+	<stdio.h>
+	<string.h>
+
+1715020528 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1715019321 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\main menu.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1715015721 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\add doctor.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1715016649 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\display doctor.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1715017145 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\display patient.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1715021313 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\admin.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1715020642 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\primary login.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1715021313 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\admin_pass.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1715021320 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\support_menu.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1715021157 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\medical_menu.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1715021313 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\display_appointments.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
