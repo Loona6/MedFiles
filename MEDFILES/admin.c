@@ -31,7 +31,7 @@ void admin() {
 
             break;
         case 1:
-            change_password();
+            //change_password();
             break;
         case 4:
             //add_ambulance_services();
