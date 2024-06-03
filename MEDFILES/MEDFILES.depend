@@ -88,3 +88,109 @@
 	<stdlib.h>
 	<string.h>
 
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\add appointment.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\add doctor.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\add patient.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\admin.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1717430331 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\admin_pass.c
+
+1717430331 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\display doctor.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\display patient.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\display_appointments.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1717431016 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\login page.c
+	<stdio.h>
+	<string.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\main menu.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\medical_menu.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\primary login.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\support_menu.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\admin menus.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1717429316 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\cabin booking.c
+	<stdio.h>
+	<string.h>
+	<stdio.h>
+	<stdbool.h>
+
+1717429877 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\loginn.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1717430733 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\medfiles\pass.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+

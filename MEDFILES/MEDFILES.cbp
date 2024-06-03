@@ -31,6 +31,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="MEDFILES.cbp" />
+		<Unit filename="MEDFILES.depend" />
 		<Unit filename="Medical_menu.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -43,10 +45,17 @@
 		<Unit filename="add patient.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="admin menus.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="admin.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="admin_pass.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="admin_user_id.txt" />
+		<Unit filename="cabin booking.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="display doctor.c">
@@ -58,7 +67,11 @@
 		<Unit filename="display_appointments.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="doctors.csv" />
 		<Unit filename="login page.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="loginn.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="main menu.c">
@@ -67,6 +80,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="pass.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="patient.csv" />
 		<Unit filename="primary login.c">
 			<Option compilerVar="CC" />
 		</Unit>
