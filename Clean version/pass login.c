@@ -77,3 +77,48 @@ int login(const char *mode) {
     printf("Incorrect username or password.\n");
     return 0;
 }
+void change_password(const char *mode, const char *username) {
+    // Define variables
+    char new_password[MAX_PASSWORD_LENGTH];
+    char line[MAX_LINE_LENGTH]; // Buffer to read each line from the file
+
+    // Open the file containing correct usernames and passwords
+    FILE *file;
+    if (strcmp(mode, "Admin") == 0) {
+        file = fopen("Admin_credentials.txt", "r+");
+    } else if (strcmp(mode, "Medical") == 0) {
+        file = fopen("Medical_credentials.txt", "r+");
+    } else if (strcmp(mode, "Support") == 0) {
+        file = fopen("Support_credentials.txt", "r+");
+    } else {
+        printf("Invalid mode.\n");
+        return;
+    }
+
+    if (file == NULL) {
+        printf("Error opening credentials file.\n");
+        return;
+    }
+
+    // Read each line from the file
+    while (fgets(line, sizeof(line), file) != NULL) {
+        char *token = strtok(line, ",");
+        if (token != NULL && strcmp(token, username) == 0) {
+            // If the username matches, prompt the user to enter a new password
+            printf("Enter new password: ");
+            fgets(new_password, MAX_PASSWORD_LENGTH, stdin);
+            // Remove newline character from password if present
+            new_password[strcspn(new_password, "\n")] = '\0';
+            // Write the new password to the file
+            fseek(file, -(strlen(line)), SEEK_CUR); // Move the file pointer back to the beginning of the line
+            fprintf(file, "%s,%s\n", username, new_password);
+            printf("Password changed successfully for user %s.\n", username);
+            fclose(file);
+            return;
+        }
+    }
+
+    // If the username is not found in the file
+    printf("User not found.\n");
+    fclose(file);
+}

@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-
+#define MAX_USERNAME_LENGTH 20
+char username[MAX_USERNAME_LENGTH];
+char mode[20];
 void pri_login()
 {
     system("color F0");
-    char mode[20];
+
     char choice;
 
     do
@@ -90,7 +91,9 @@ void admin()
 
         case '1':
             // change password
-
+            printf("Enter username: ");
+            fgets(username, MAX_USERNAME_LENGTH, stdin);
+            change_password(mode,username);
             break;
 
         case '2':
@@ -160,7 +163,7 @@ void support_menu()
         do
         {
             printf("Enter option: ");
-            scanf("%c ", &choice);
+            scanf("%c", &choice);
             while (getchar() != '\n');  // Clear input buffer
             system("cls");
 
@@ -175,7 +178,7 @@ void support_menu()
         {
         case '1':
             // change password
-
+            change_password();
             break;
         case '2':
             //View ambulance list
@@ -193,6 +196,7 @@ void support_menu()
             break;
         case '6':
             // book lab test + cabin
+            bookTest();
             break;
         case '7':
             return;  // Return to Main Menu
