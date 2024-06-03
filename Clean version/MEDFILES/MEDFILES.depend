@@ -1,0 +1,59 @@
+# depslib dependency file v1.0
+1717432899 source:e:\new folder\add appointment.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+
+1717432869 source:e:\new folder\add patient.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+
+1717432443 source:e:\new folder\admin menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1717432810 source:e:\new folder\cabin booking.c
+	<stdio.h>
+	<string.h>
+	<stdio.h>
+	<stdbool.h>
+
+1717432719 source:e:\new folder\display appointments.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1717432768 source:e:\new folder\display patient.c
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	<stdlib.h>
+
+1717434878 source:e:\new folder\pass login.c
+	<stdio.h>
+	<string.h>
+
+1717434234 source:e:\new folder\medfiles\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1717434833 source:e:\new folder\primary login.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1717433974 source:e:\new folder\admin pass.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
