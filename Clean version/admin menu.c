@@ -29,39 +29,53 @@ struct Ambulance {
 struct Ambulance ambulances[MAX_AMBULANCES];
 
 void add_doctor() {
-    char first_name[500];
-    char last_name[500];
-    char user_id[MAX_ID_LENGTH];
+  char first_name[500];
+  char last_name[500];
+  char user_id[MAX_ID_LENGTH];
 
-    printf("Enter doctor's first name: ");
-    scanf("%s", first_name);
-    printf("Enter doctor's last name: ");
-    scanf("%s", last_name);
-    printf("Enter doctor's user ID: ");
-    scanf("%s", user_id);
+  printf("Enter doctor's first name: ");
+  scanf("%s", first_name);
+  printf("Enter doctor's last name: ");
+  scanf("%s", last_name);
+  printf("Enter doctor's user ID: ");
+  scanf("%s", user_id);
+  printf("Enter doctor's password: ");
+  int pass;
+  scanf("%d", &pass);
 
-    FILE *file = fopen(FILENAME2, "a");
+  FILE *f = fopen("Medical_credentials.txt", "a");
+  if (f == NULL) {
+    f = fopen("Medical_credentials.txt", "w");
+    if (f == NULL) {
+      printf("Error creating file.\n");
+      return;
+    }
+  }
+  fprintf(f, "%s,%d\n", user_id, pass);
+  fclose(f);
+
+  FILE *file = fopen(FILENAME2, "a");
+  if (file == NULL) {
+    file = fopen(FILENAME2, "w");
     if (file == NULL) {
-        file = fopen(FILENAME2, "w");
-        if (file == NULL) {
-            printf("Error creating file.\n");
-            return;
-        }
-
-        fprintf(file, "First Name,Last Name,User ID\n");
+      printf("Error creating file.\n");
+      return;
     }
 
-    fprintf(file, "%s,%s,%s\n", first_name, last_name, user_id);
-    fclose(file);
+    fprintf(file, "First Name,Last Name,User ID\n");
+  }
 
-    printf("Doctor %s %s added successfully with user ID %s.\n", first_name, last_name, user_id);
+  fprintf(file, "%s,%s,%s\n", first_name, last_name, user_id);
+  fclose(file);
 
-    // Prompt to press Enter before clearing screen
-    printf("Press Enter to continue...");
-    getchar(); // Clear input buffer
-    getchar(); // Wait for Enter key
+  printf("Doctor %s %s added successfully with user ID %s.\n", first_name, last_name, user_id);
 
-    clear_screen(); // Clear screen after operation
+  // Prompt to press Enter before clearing screen
+  printf("Press Enter to continue...");
+  getchar(); // Clear input buffer
+  getchar(); // Wait for Enter key
+
+  clear_screen(); // Clear screen after operation
 }
 
 void add_staff() {
