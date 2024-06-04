@@ -64,14 +64,14 @@
 	<math.h>
 	<string.h>
 
-1717432869 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\add patient.c
+1717493664 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\add patient.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<math.h>
 	<string.h>
 
-1717432443 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\admin menu.c
+1717486835 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\admin menu.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -96,17 +96,17 @@
 	<stdlib.h>
 	<string.h>
 
-1717432768 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\display patient.c
+1717493721 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\display patient.c
 	<stdio.h>
 	<string.h>
-	<stdbool.h>
 	<stdlib.h>
+	<ctype.h>
 
-1717435667 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\pass login.c
+1717488715 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\pass login.c
 	<stdio.h>
 	<string.h>
 
-1717437092 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\primary login.c
+1717493786 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\primary login.c
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
@@ -115,8 +115,9 @@
 	<stdio.h>
 	<stdlib.h>
 
-1717432131 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\lab test booking.c
+1717485495 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\lab test booking.c
 	<stdio.h>
 	<stdbool.h>
 	<string.h>
+	<stdio.h>
 

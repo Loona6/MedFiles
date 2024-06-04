@@ -23,6 +23,7 @@ void clear_screen() {
 struct Ambulance {
     char number[50];
     char contact[MAX_CONTACT_LENGTH];
+    char status[10];
 };
 
 struct Ambulance ambulances[MAX_AMBULANCES];
@@ -106,6 +107,7 @@ void add_ambulance() {
         scanf("%s", ambulances[i].number);
         printf("Enter contact number for Ambulance %d: ", i + 1);
         scanf("%s", ambulances[i].contact);
+        strcpy(ambulances[i].status, "Unbooked"); // Set status to unbooked
     }
 
     FILE *file = fopen(FILENAME, "a");
@@ -115,7 +117,7 @@ void add_ambulance() {
     }
 
     for (int i = 0; i < MAX_AMBULANCES; i++) {
-        fprintf(file, "%s,%s\n", ambulances[i].number, ambulances[i].contact);
+        fprintf(file, "%s,%s,%s\n", ambulances[i].number, ambulances[i].contact, ambulances[i].status);
     }
 
     fclose(file);
@@ -135,11 +137,11 @@ void delete_ambulance() {
     int found = 0;
 
     printf("Enter the ambulance ID to delete: ");
-    scanf("%s", ambulance_id);
+    scanf("%19s", ambulance_id); // Limit input length to prevent buffer overflow
 
     FILE *file = fopen(FILENAME, "r");
     if (file == NULL) {
-        printf("Error opening file.\n");
+        printf("Error opening file for reading.\n");
         return;
     }
 
@@ -150,16 +152,24 @@ void delete_ambulance() {
         return;
     }
 
-    // Copy the header
-    if (fgets(line, sizeof(line), file) != NULL) {
-        fputs(line, temp_file);
+    // Copy the first row
+    if (fgets(line, sizeof(line), file) == NULL) {
+        printf("Error: file is empty.\n");
+        fclose(file);
+        fclose(temp_file);
+        remove(TEMP_FILENAME); // Clean up temporary file
+        return;
     }
+    fputs(line, temp_file);
 
     // Copy the lines except the one to delete
     while (fgets(line, sizeof(line), file) != NULL) {
-        if (strstr(line, ambulance_id) != NULL) {
+        char temp_line[MAX_LINE_LENGTH];
+        strcpy(temp_line, line);
+        char *id = strtok(temp_line, ",");
+        if (id != NULL && strcmp(id, ambulance_id) == 0) {
             found = 1;
-            continue;
+            continue; // Skip this line
         }
         fputs(line, temp_file);
     }
@@ -168,8 +178,14 @@ void delete_ambulance() {
     fclose(temp_file);
 
     if (found) {
-        remove(FILENAME);
-        rename(TEMP_FILENAME, FILENAME);
+        if (remove(FILENAME) != 0) {
+            printf("Error deleting original file.\n");
+            return;
+        }
+        if (rename(TEMP_FILENAME, FILENAME) != 0) {
+            printf("Error renaming temporary file.\n");
+            return;
+        }
         printf("Ambulance with ID %s deleted successfully.\n", ambulance_id);
     } else {
         remove(TEMP_FILENAME);
@@ -293,12 +309,22 @@ void display_ambulance() {
     }
 
     printf("Ambulance Services:\n");
-    printf("%-20s%-20s\n", "ID", "Contact");
+    printf("%-20s%-20s%-20s\n", "ID", "Contact", "Status");
     printf("-------------------------------------------------------------\n");
+    char line[1024];
 
-    while (fscanf(file, "%[^,],%s\n", ambulance.number, ambulance.contact) != EOF) {
+    while (fgets(line, sizeof(line), file) != NULL) {
+        char *token;
+        token = strtok(line, ",");
+        if (token != NULL) strcpy(ambulance.number, token);
+
+        token = strtok(NULL, ",");
+        if (token != NULL) strcpy(ambulance.contact, token);
+
+        token = strtok(NULL, ",");
+        if (token != NULL) strcpy(ambulance.status, token);
         count++;
-        printf("%-20s%-20s\n", ambulance.number, ambulance.contact);
+        printf("%-20s%-20s%-20s\n", ambulance.number, ambulance.contact,ambulance.status);
     }
 
     fclose(file);

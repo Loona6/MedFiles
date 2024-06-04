@@ -53,6 +53,9 @@
 		<Unit filename="../display patient.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="../lab test booking.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../pass login.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #define MAX_USERNAME_LENGTH 20
+#define MAX_PASSWORD_LENGTH 20
 char username[MAX_USERNAME_LENGTH];
 char mode[20];
 void pri_login()
@@ -28,7 +29,8 @@ void pri_login()
         {
         case '1':
             strcpy(mode, "Admin");
-            if(login(mode)) admin();
+            int verify=login(mode);
+            if(verify) admin();
             break;
         case '2':
             strcpy(mode, "Medical");
@@ -93,7 +95,14 @@ void admin()
             // change password
             printf("Enter username: ");
             fgets(username, MAX_USERNAME_LENGTH, stdin);
-            change_password(mode,username);
+
+            // Clear input buffer
+            if (username[strlen(username) - 1] == '\n')
+                username[strlen(username) - 1] = '\0';
+            else
+                while (getchar() != '\n');  // Clear input buffer if necessary
+
+            change_password(mode,namesender(),username);
             break;
 
         case '2':
@@ -258,9 +267,21 @@ void med_menu()
             add_appointment();
             break;
         case '3':
-            // view patient
-            display_patients();
-            break;
+            {
+                // View Patients
+                int sort_choice;
+                printf("View patients sorted by:\n");
+                printf("1. Name\n");
+                printf("2. Date\n");
+                printf("Enter your choice: \n\n");
+                scanf("%d", &sort_choice);
+                while (sort_choice < 1 || sort_choice > 2) {
+                    printf("Invalid choice. Please enter 1 for Name or 2 for Date: ");
+                    scanf("%d", &sort_choice);
+                }
+                display_patients(sort_choice);
+                break;
+            }
         case '4':
             //view appointments
             display_appointments();
