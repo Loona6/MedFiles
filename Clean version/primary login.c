@@ -4,6 +4,7 @@
 #define MAX_USERNAME_LENGTH 20
 #define MAX_PASSWORD_LENGTH 20
 char username[MAX_USERNAME_LENGTH];
+char docname[MAX_USERNAME_LENGTH];
 char mode[20];
 void pri_login()
 {
@@ -221,7 +222,13 @@ void support_menu()
             break;
         case '7':
             // book appointment
-            add_appointment();
+            printf("Enter doctor's name: ");
+            fgets(docname, MAX_USERNAME_LENGTH, stdin);
+
+            // Remove newline character from the doctor's name
+            docname[strcspn(docname, "\n")] = '\0';
+
+            add_appointment(docname);
             break;
         case '8':
             return;  // Return to Main Menu

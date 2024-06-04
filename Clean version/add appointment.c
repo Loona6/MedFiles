@@ -1,59 +1,71 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-#include<math.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #define MAX_APPOINTMENTS 100
-#define FILENAME "appointments.csv"
+
 typedef struct Appointment {
     char patient_name[50];
     char doctor_name[50];
     char date[20];
     char time[10];
-}Appointment;
+} Appointment;
 
-Appointment newAppointment;
+char* create_appointment_filename(const char* username) {
+    size_t filename_len = strlen(username) + strlen("_appointments.csv") + 1;
+    char* filename = malloc(filename_len * sizeof(char));
+    if (filename == NULL) {
+        fprintf(stderr, "Error allocating memory for filename.\n");
+        return NULL;
+    }
+    snprintf(filename, filename_len, "%s_appointments.csv", username);
+    //printf("Filename: %s\n", filename); // Print filename for debugging
+    return filename;
+}
 
-void add_appointment() {
+void clear_input_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+void add_appointment(const char* username) {
+    Appointment newAppointment;
+
     printf("Enter details:\n");
     printf("Enter patient name: ");
-    scanf("%s", newAppointment.patient_name);
-    printf("Enter doctor's name: ");
-    scanf("%s", newAppointment.doctor_name);
+    fgets(newAppointment.patient_name, sizeof(newAppointment.patient_name), stdin);
+    newAppointment.patient_name[strcspn(newAppointment.patient_name, "\n")] = '\0'; // Remove trailing newline
     printf("Enter date (DD/MM/YYYY): ");
-    scanf("%s", newAppointment.date);
+    fgets(newAppointment.date, sizeof(newAppointment.date), stdin);
+    newAppointment.date[strcspn(newAppointment.date, "\n")] = '\0'; // Remove trailing newline
     printf("Enter time (HH:MM AM/PM): ");
-    scanf("%s", newAppointment.time);
+    fgets(newAppointment.time, sizeof(newAppointment.time), stdin);
+    newAppointment.time[strcspn(newAppointment.time, "\n")] = '\0'; // Remove trailing newline
 
-    // Check if the file already exists
-    FILE *file = fopen(FILENAME, "r");
-    int file_exists = (file != NULL);
-    if (file) {
-        fclose(file);
-    }
-
-    // Open the file for appending
-    file = fopen(FILENAME, "a");
+    char *filename = create_appointment_filename(username);
+    FILE *file = fopen(filename, "a");
     if (file == NULL) {
-        printf("Error opening file.\n");
-        return;
+        // Attempt to create the file
+        file = fopen(filename, "w");
+        if (file == NULL) {
+            printf("Error creating file.\n");
+            free(filename);
+            return;
+        }
     }
 
-    // Write the header if the file was just created
-    if (!file_exists) {
-        fprintf(file, "Patient Name,Doctor Name,Date,Time\n");
+    int file_just_created = (ftell(file) == 0);
+    if (file_just_created) {
+        fprintf(file, "Patient Name,Date,Time\n");
     }
-
-    // Write appointment details to the file
-    fprintf(file, "%s,%s,%s,%s\n", newAppointment.patient_name, newAppointment.doctor_name, newAppointment.date, newAppointment.time);
+    fprintf(file, "%s,%s,%s\n", newAppointment.patient_name, newAppointment.date, newAppointment.time);
 
     fclose(file);
+    free(filename);
     printf("Appointment added successfully.\n");
-
-    // Prompt to press Enter before clearing screen
     printf("Press Enter to continue...");
-    getchar(); // Clear input buffer
+    clear_input_buffer();
     getchar(); // Wait for Enter key
-
-    clear_screen(); // Clear screen after operation
+    // Clear screen after operation
+    // clear_screen(); // Uncomment this line if you have the clear_screen() function
 }

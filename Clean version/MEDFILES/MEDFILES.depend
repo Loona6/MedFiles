@@ -57,14 +57,12 @@
 	<stdlib.h>
 	<string.h>
 
-1717501301 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\add appointment.c
+1717507276 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\add appointment.c
 	<stdio.h>
 	<stdlib.h>
-	<time.h>
-	<math.h>
 	<string.h>
 
-1717504341 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\add patient.c
+1717504420 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\add patient.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -106,7 +104,7 @@
 	<stdio.h>
 	<string.h>
 
-1717503413 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\primary login.c
+1717506626 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\primary login.c
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
