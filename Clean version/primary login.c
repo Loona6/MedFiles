@@ -167,7 +167,8 @@ void support_menu()
         printf("\t\t\t4. View available Lab tests and prices\n");
         printf("\t\t\t5. View availabe cabin services\n");
         printf("\t\t\t6. Book lab tests/cabin(or both)\n");
-        printf("\t\t\t7. Return to Main Menu\n\n");
+        printf("\t\t\t7. Book appointment\n");
+        printf("\t\t\t8. Return to Main Menu\n\n");
 
         do
         {
@@ -176,18 +177,27 @@ void support_menu()
             while (getchar() != '\n');  // Clear input buffer
             system("cls");
 
-            if (choice < '1'|| choice > '7')
+            if (choice < '1'|| choice > '8')
             {
-                printf("Invalid mode choice. Please enter a number between 1 and 7.\n");
+                printf("Invalid mode choice. Please enter a number between 1 and 8.\n");
             }
         }
-        while (choice < '1' || choice > '7');
+        while (choice < '1' || choice > '8');
 
         switch (choice)
         {
         case '1':
-            // change password
-            change_password();
+             // change password
+            printf("Enter username: ");
+            fgets(username, MAX_USERNAME_LENGTH, stdin);
+
+            // Clear input buffer
+            if (username[strlen(username) - 1] == '\n')
+                username[strlen(username) - 1] = '\0';
+            else
+                while (getchar() != '\n');  // Clear input buffer if necessary
+
+            change_password(mode,namesender(),username);
             break;
         case '2':
             //View ambulance list
@@ -210,20 +220,24 @@ void support_menu()
             bookTest();
             break;
         case '7':
+            // book appointment
+            add_appointment();
+            break;
+        case '8':
             return;  // Return to Main Menu
         default:
             printf("Invalid choice.\n");
             break;
         }
 
-        if (choice != '7')
+        if (choice != '8')
         {
             printf("Press any key to continue...\n");
             getchar();  // Wait for a key press
             system("cls");  // Clear screen
         }
     }
-    while (choice != '7');
+    while (choice != '8');
 }
 
 void med_menu()
@@ -233,8 +247,8 @@ void med_menu()
     do
     {
         printf("\t\t\t\t\t\tWelcome to Medical Staff Menu\n\n\n");
-        printf("\t\t\t1. Add Patient\n");
-        printf("\t\t\t2. Book Appointments\n");
+        printf("\t\t\t1. Change password\n");
+        printf("\t\t\t2. Add Patient\n");
         printf("\t\t\t3. View Patient list\n");
         printf("\t\t\t4. View Scheduled Appointments\n");
         printf("\t\t\t5. Search Patient\n");
@@ -249,22 +263,31 @@ void med_menu()
             while (getchar() != '\n');  // Clear input buffer
             system("cls");
 
-            if (choice < '1' || choice > '7')
+            if (choice < '1' || choice > '8')
             {
                 printf("Invalid mode choice. Please enter a number between 1 and 7.\n");
             }
         }
-        while (choice < '1' || choice > '7');
+        while (choice < '1' || choice > '8');
 
         switch (choice)
         {
-        case '1':
+        case '2':
             // Add Patient
             add_patient();
             break;
-        case '2':
-            // add appointments
-            add_appointment();
+        case '1':
+             // change password
+            printf("Enter username: ");
+            fgets(username, MAX_USERNAME_LENGTH, stdin);
+
+            // Clear input buffer
+            if (username[strlen(username) - 1] == '\n')
+                username[strlen(username) - 1] = '\0';
+            else
+                while (getchar() != '\n');  // Clear input buffer if necessary
+
+            change_password(mode,namesender(),username);
             break;
         case '3':
             {

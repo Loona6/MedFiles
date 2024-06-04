@@ -15,31 +15,45 @@ typedef struct Appointment {
 Appointment newAppointment;
 
 void add_appointment() {
-        printf("Enter details:\n");
-            printf("Enter patient name: ");
-            scanf("%s", newAppointment.patient_name);
-            printf("\n");
-            printf("Enter doctor's name: ");
-            scanf("%s", newAppointment.doctor_name);
-            printf("\n");
-            printf("Enter date(DD/MM/YYYY): ");
-            scanf("%s", newAppointment.date);
-            printf("\n");
-            printf("Enter time(HH:MMAM/PM): ");
-            scanf("%s", newAppointment.time);
-            printf("\n");
+    printf("Enter details:\n");
+    printf("Enter patient name: ");
+    scanf("%s", newAppointment.patient_name);
+    printf("Enter doctor's name: ");
+    scanf("%s", newAppointment.doctor_name);
+    printf("Enter date (DD/MM/YYYY): ");
+    scanf("%s", newAppointment.date);
+    printf("Enter time (HH:MM AM/PM): ");
+    scanf("%s", newAppointment.time);
 
-        FILE *file = fopen(FILENAME, "w");
-        if (file == NULL) {
-            printf("Error creating file.\n");
-            return;
-        }
-
-        // Write patient details to the file
-        fprintf(file, "Patient Name,Doctor Name,Date,Time\n");
-            fprintf(file, "%s,%s,%s,%s\n", newAppointment.patient_name, newAppointment.doctor_name, newAppointment.date, newAppointment.time);
-
+    // Check if the file already exists
+    FILE *file = fopen(FILENAME, "r");
+    int file_exists = (file != NULL);
+    if (file) {
         fclose(file);
-        printf("Appointment added successfully.\n");
+    }
 
+    // Open the file for appending
+    file = fopen(FILENAME, "a");
+    if (file == NULL) {
+        printf("Error opening file.\n");
+        return;
+    }
+
+    // Write the header if the file was just created
+    if (!file_exists) {
+        fprintf(file, "Patient Name,Doctor Name,Date,Time\n");
+    }
+
+    // Write appointment details to the file
+    fprintf(file, "%s,%s,%s,%s\n", newAppointment.patient_name, newAppointment.doctor_name, newAppointment.date, newAppointment.time);
+
+    fclose(file);
+    printf("Appointment added successfully.\n");
+
+    // Prompt to press Enter before clearing screen
+    printf("Press Enter to continue...");
+    getchar(); // Clear input buffer
+    getchar(); // Wait for Enter key
+
+    clear_screen(); // Clear screen after operation
 }
