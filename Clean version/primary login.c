@@ -182,7 +182,7 @@ void support_menu()
             break;
         case '2':
             //View ambulance list
-
+            display_ambulance();
             break;
         case '3':
             // Book ambulance
@@ -190,9 +190,11 @@ void support_menu()
             break;
         case '4':
             // view lab tests
+            displayAvailableTests();
             break;
         case '5':
             // view cabin price
+
             break;
         case '6':
             // book lab test + cabin
@@ -234,7 +236,7 @@ void med_menu()
         do
         {
             printf("Enter option: ");
-            scanf("%c ", &choice);
+            scanf("%c", &choice);
             while (getchar() != '\n');  // Clear input buffer
             system("cls");
 
@@ -249,25 +251,31 @@ void med_menu()
         {
         case '1':
             // Add Patient
-
+            add_patient();
             break;
         case '2':
             // add appointments
+            add_appointment();
             break;
         case '3':
             // view patient
+            display_patients();
             break;
         case '4':
             //view appointments
+            display_appointments();
             break;
         case '5':
             //search patient
+
             break;
         case '6':
             //add patient notes
+
             break;
         case '7':
             //view patient history
+
             break;
         case '8':
             return;  // Return to Main Menu
