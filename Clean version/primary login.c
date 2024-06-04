@@ -311,7 +311,7 @@ void med_menu()
             break;
         case '5':
             //search patient
-
+            search_patient();
             break;
         case '6':
             //add patient notes
