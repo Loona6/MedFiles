@@ -40,8 +40,8 @@ void add_doctor() {
   printf("Enter doctor's user ID: ");
   scanf("%s", user_id);
   printf("Enter doctor's password: ");
-  int pass;
-  scanf("%d", &pass);
+  char pass[100];
+  scanf("%s", pass);
 
   FILE *f = fopen("Medical_credentials.txt", "a");
   if (f == NULL) {
@@ -51,7 +51,7 @@ void add_doctor() {
       return;
     }
   }
-  fprintf(f, "%s,%d\n", user_id, pass);
+  fprintf(f, "%s,%s\n", user_id, pass);
   fclose(f);
 
   FILE *file = fopen(FILENAME2, "a");
@@ -89,6 +89,20 @@ void add_staff() {
     scanf("%s", last_name);
     printf("Enter staff's user ID: ");
     scanf("%s", user_id);
+    printf("Enter staff's password: ");
+    char pass[100];
+    scanf("%s", pass);
+
+      FILE *f = fopen("Support_credentials.txt", "a");
+      if (f == NULL) {
+        f = fopen("Support_credentials.txt", "w");
+        if (f == NULL) {
+          printf("Error creating file.\n");
+          return;
+        }
+      }
+      fprintf(f, "%s,%s\n", user_id, pass);
+      fclose(f);
 
     FILE *file = fopen(FILENAME3, "a");
     if (file == NULL) {
