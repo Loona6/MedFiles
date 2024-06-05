@@ -55,7 +55,7 @@ void calculateTotalBill(struct LabTest tests[], int numTests) {
     char name[100];
     FILE *file;
 
-    file = fopen("bill.txt", "w");
+    file = fopen("bill.txt", "a");
     if (file == NULL) {
         printf("Error opening file!\n");
         return;
@@ -91,8 +91,8 @@ void calculateTotalBill(struct LabTest tests[], int numTests) {
                 (mri * MRI_PRICE) +
                 (ultrasound * ULTRASOUND_PRICE) + (ctscan * CTSCAN_PRICE);
 
-    fprintf(file, "Patient's name: %s\n", name);
-    fprintf(file, "Total bill:\n");
+    fprintf(file, "\n\nPatient's name: %s\n", name);
+    //fprintf(file, "Total bill:\n");
     if (bloodTest > 0) {
         fprintf(file, "Blood Test(s): %d x 500 = %d taka\n", bloodTest, bloodTest * BLOOD_TEST_PRICE);
     }
