@@ -169,7 +169,8 @@ void support_menu()
         printf("\t\t\t5. View availabe cabin services\n");
         printf("\t\t\t6. Book lab tests/cabin(or both)\n");
         printf("\t\t\t7. Book appointment\n");
-        printf("\t\t\t8. Return to Main Menu\n\n");
+        printf("\t\t\t8. View appointment\n");
+        printf("\t\t\t9. Return to Main Menu\n\n");
 
         do
         {
@@ -178,12 +179,12 @@ void support_menu()
             while (getchar() != '\n');  // Clear input buffer
             system("cls");
 
-            if (choice < '1'|| choice > '8')
+            if (choice < '1'|| choice > '9')
             {
                 printf("Invalid mode choice. Please enter a number between 1 and 8.\n");
             }
         }
-        while (choice < '1' || choice > '8');
+        while (choice < '1' || choice > '9');
 
         switch (choice)
         {
@@ -220,6 +221,10 @@ void support_menu()
             // book lab test + cabin
             bookTest();
             break;
+        case '8':
+            // view appointment
+            //();
+            break;
         case '7':
             // book appointment
             printf("Enter doctor's name: ");
@@ -230,7 +235,7 @@ void support_menu()
 
             add_appointment(docname);
             break;
-        case '8':
+        case '9':
             return;  // Return to Main Menu
         default:
             printf("Invalid choice.\n");
