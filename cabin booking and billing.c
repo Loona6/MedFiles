@@ -131,7 +131,7 @@ void calculateCabinBill(struct CabinBooking booking) {
     char name[1000];
     FILE *file;
 
-    file = fopen("cabin_bill.txt", "w");
+    file = fopen("cabin_bill.txt", "a");
     if (file == NULL) {
         printf("Error opening file!\n");
         return;
@@ -144,8 +144,8 @@ void calculateCabinBill(struct CabinBooking booking) {
                 (booking.generalWardDays * GENERAL_WARD_RATE) +
                 (booking.normalCabinDays * NORMAL_CABIN_RATE);
 
-    fprintf(file, "Patient's name: %s\n", name);
-    fprintf(file, "Total bill:\n");
+    fprintf(file, "\n\nPatient's name: %s\n", name);
+   // fprintf(file, "Total bill:\n");
     if (booking.vipDays > 0) {
         fprintf(file, "VIP Cabin: %d days x 5000 = %d taka\n", booking.vipDays, booking.vipDays * VIP_RATE);
     }
