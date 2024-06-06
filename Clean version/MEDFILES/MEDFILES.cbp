@@ -31,9 +31,56 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../add patient.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../admin menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../clinical notes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../display appointments.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../pass login.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../primary login.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="987654.pdf" />
+		<Unit filename="Admin_credentials.txt" />
+		<Unit filename="HelveticaNeueBold.ttf" />
+		<Unit filename="MEDFILES.cbp" />
+		<Unit filename="Medical_credentials.txt" />
+		<Unit filename="Support_credentials.txt" />
+		<Unit filename="ambulance_services.csv" />
+		<Unit filename="appointments.csv" />
+		<Unit filename="bill.txt" />
+		<Unit filename="dfhdfd.pdf" />
+		<Unit filename="doctors.csv" />
+		<Unit filename="dss.pdf" />
+		<Unit filename="fb.pdf" />
+		<Unit filename="fs.pdf" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="patient.csv" />
+		<Unit filename="pdfgen.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pdfgen.h" />
+		<Unit filename="sha256.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="sha256.h" />
+		<Unit filename="staff.csv" />
+		<Unit filename="ud.pdf" />
+		<Unit filename="user1_appointments.csv" />
+		<Unit filename="user1_patient.csv" />
+		<Unit filename="user2_patient.csv" />
+		<Unit filename="yyy.pdf" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

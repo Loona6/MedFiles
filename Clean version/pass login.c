@@ -1,22 +1,37 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include <time.h>
+#include "sha256.h"
 
+#define HASH_LENGTH 64 // SHA-256 produces 64-character hash
 #define MAX_USERNAME_LENGTH 20
-#define MAX_PASSWORD_LENGTH 20
-#define MAX_LINE_LENGTH 50 // Adjust according to maximum expected line length in the file
+#define MAX_PASSWORD_LENGTH 65
+#define MAX_LINE_LENGTH 100 // Adjust according to your maximum expected line length
 #define MAX_USERS 100 // Maximum number of users
+
 char logged_in_username[MAX_USERNAME_LENGTH];
 
-char* create_pass_filename(const char* username) {
-    size_t filename_len = strlen(username) + strlen("_credentials.txt") + 1;
-    char* filename = malloc(filename_len * sizeof(char));
-    if (filename == NULL) {
-        fprintf(stderr, "Error allocating memory for filename.\n");
-        return NULL;
+void hashPassword(const char *password, char *hash) {
+    SHA256_CTX ctx;
+    sha256_init(&ctx);
+    sha256_update(&ctx, (const uint8_t *)password, strlen(password));
+    sha256_final(&ctx, (uint8_t *)hash);
+
+    // Convert binary hash to hexadecimal string
+    char hex_hash[2 * 32 + 1];
+    for (int i = 0; i < 32; i++) {
+        sprintf(hex_hash + 2 * i, "%02x", (uint8_t)hash[i]);
     }
-    snprintf(filename, filename_len, "%s_credentials.txt", username);
-    //printf("%s", filename);
-    return filename;
+    strcpy(hash, hex_hash);
+}
+
+int verifyPassword(const char *input_password, const char *stored_hash) {
+    char input_hash[HASH_LENGTH + 1]; // Room for hexadecimal hash + null terminator
+    hashPassword(input_password, input_hash);
+    printf("input:%s\nstored:%s\n", input_hash, stored_hash);
+    return strcmp(input_hash, stored_hash) == 0;
 }
 
 int login(const char *mode) {
@@ -24,13 +39,14 @@ int login(const char *mode) {
     char username[MAX_USERNAME_LENGTH];
     char password[MAX_PASSWORD_LENGTH];
     char correct_usernames[MAX_USERS][MAX_USERNAME_LENGTH]; // Store correct usernames read from file
-    char correct_passwords[MAX_USERS][MAX_PASSWORD_LENGTH]; // Store correct passwords read from file
+    char correct_password_hashes[MAX_USERS][HASH_LENGTH + 1]; // Store hashed passwords read from file
     char *token; // Token pointer for strtok
     char line[MAX_LINE_LENGTH]; // Buffer to read each line from the file
     int num_users = 0; // Counter for number of users read from file
 
     printf("\t\t\t\t\t\tLOGIN to enter MEDFILES\n");
-    // Open the file containing correct usernames and passwords
+
+    // Open the file containing correct usernames and hashed passwords
     FILE *file;
     if (strcmp(mode, "Admin") == 0) {
         file = fopen("Admin_credentials.txt", "r");
@@ -56,9 +72,8 @@ int login(const char *mode) {
             strcpy(correct_usernames[num_users], token); // Copy the username
             token = strtok(NULL, ",");
             if (token != NULL) {
-                strcpy(correct_passwords[num_users], token); // Copy the password
-                // Remove newline character from password if present
-                correct_passwords[num_users][strcspn(correct_passwords[num_users], "\n")] = '\0';
+                strcpy(correct_password_hashes[num_users], token); // Copy the hashed password
+                correct_password_hashes[num_users][strcspn(correct_password_hashes[num_users], "\n")] = '\0'; // Remove newline character
                 num_users++; // Increment number of users read
             }
         }
@@ -68,19 +83,19 @@ int login(const char *mode) {
 
     // Prompt user for username
     printf("Enter username: ");
-    fgets(username, MAX_USERNAME_LENGTH, stdin);
-    // Remove newline character from username if present
-    username[strcspn(username, "\n")] = '\0';
+    if (fgets(username, MAX_USERNAME_LENGTH, stdin) != NULL) {
+        username[strcspn(username, "\n")] = '\0'; // Remove newline character
+    }
 
     // Prompt user for password
     printf("Enter password: ");
-    fgets(password, MAX_PASSWORD_LENGTH, stdin);
-    // Remove newline character from password if present
-    password[strcspn(password, "\n")] = '\0';
+    if (fgets(password, MAX_PASSWORD_LENGTH, stdin) != NULL) {
+        password[strcspn(password, "\n")] = '\0'; // Remove newline character
+    }
 
     // Check if the entered username and password match any of the correct ones
     for (int i = 0; i < num_users; i++) {
-        if (strcmp(username, correct_usernames[i]) == 0 && strcmp(password, correct_passwords[i]) == 0) {
+        if (strcmp(username, correct_usernames[i]) == 0 && verifyPassword(password, correct_password_hashes[i])) {
             printf("Login successful! Welcome, %s.\n", username);
             strcpy(logged_in_username, username);
             return 1; // Exit the function
@@ -91,32 +106,31 @@ int login(const char *mode) {
     printf("Incorrect username or password.\n");
     return 0;
 }
-const char* namesender(){
-
-    return logged_in_username;
-
-}
 
 void change_password(const char *mode, const char *logged_in_username, const char *target_username) {
     // Define variables
     char new_password[MAX_PASSWORD_LENGTH];
     char line[MAX_LINE_LENGTH]; // Buffer to read each line from the file
 
-    // Open the input file containing correct usernames and passwords
+    // Open the file containing correct usernames and hashed passwords
     FILE *file;
-    const char *filename = create_pass_filename(mode);
-    if (filename == NULL) {
+    if (strcmp(mode, "Admin") == 0) {
+        file = fopen("Admin_credentials.txt", "r");
+    } else if (strcmp(mode, "Medical") == 0) {
+        file = fopen("Medical_credentials.txt", "r");
+    } else if (strcmp(mode, "Support") == 0) {
+        file = fopen("Support_credentials.txt", "r");
+    } else {
         printf("Invalid mode.\n");
         return;
     }
 
-    file = fopen(filename, "r");
     if (file == NULL) {
         printf("Error opening credentials file.\n");
         return;
     }
 
-    // Open a temporary file to store updated content
+    // Create a temporary file to store updated content
     FILE *temp_file = fopen("temp.txt", "w");
     if (temp_file == NULL) {
         printf("Error creating temporary file.\n");
@@ -126,40 +140,41 @@ void change_password(const char *mode, const char *logged_in_username, const cha
 
     // Read each line from the file
     while (fgets(line, sizeof(line), file) != NULL) {
-        // Copy the line to maintain original content
+        // Find newline character if exists
+        char *newline_pos = strchr(line, '\n');
+        if (newline_pos != NULL) {
+            // Found newline character, terminate the string there
+            *newline_pos = '\0';
+        }
+
+        // Tokenize the line to extract username and hashed password
         char *line_copy = strdup(line);
-
-        // Tokenize the line to extract username and password
         char *token = strtok(line_copy, ",");
-        if (token != NULL) {
-            // Extract username from the token
-            char *username = strdup(token);
-
-            // Compare the username with the target username
-            if (strcmp(username, target_username) == 0) {
-                // If the username matches the target username, prompt for a new password
-                if (strcmp(logged_in_username, target_username) == 0) {
-                    // Authorized to change the password
-                    printf("Enter new password for %s: ", target_username);
-                    fgets(new_password, MAX_PASSWORD_LENGTH, stdin);
-                    new_password[strcspn(new_password, "\n")] = '\0'; // Remove newline character
-
-                    // Write the updated line (username and new password) to the temporary file
-                    fprintf(temp_file, "%s,%s\n", username, new_password);
-                    printf("Password changed successfully for user %s.\n", target_username);
-                } else {
-                    // Not authorized to change the password
-                    printf("You are not authorized to change the password for %s.\n", target_username);
-                    // Write the original line to the temporary file
-                    fputs(line, temp_file);
-                }
-            } else {
+        if (token != NULL && strcmp(token, target_username) == 0) {
+            // If the username matches the target username, prompt the user to enter a new password
+            if (strcmp(logged_in_username, target_username) != 0) {
+                // If the logged-in username does not match the target username, display an error message
+                printf("You are not authorized to change the password for %s.\n", target_username);
                 // Write the original line to the temporary file
-                fputs(line, temp_file);
-            }
+                fprintf(temp_file, "%s\n", line); // Write original line as-is
+            } else {
+                // Prompt the user to enter a new password
+                printf("Enter new password for %s: ", target_username);
+                if (fgets(new_password, MAX_PASSWORD_LENGTH, stdin) != NULL) {
+                    new_password[strcspn(new_password, "\n")] = '\0'; // Remove newline character
+                }
 
-            // Free dynamically allocated memory
-            free(username);
+                // Hash the new password
+                char new_password_hash[HASH_LENGTH + 1];
+                hashPassword(new_password, new_password_hash);
+
+                // Write the updated line to the temporary file
+                fprintf(temp_file, "%s,%s\n", target_username, new_password_hash);
+                printf("Password changed successfully for user %s.\n", target_username);
+            }
+        } else {
+            // Write the original line to the temporary file
+            fprintf(temp_file, "%s\n", line); // Write original line as-is
         }
 
         // Free memory allocated by strdup
@@ -170,7 +185,19 @@ void change_password(const char *mode, const char *logged_in_username, const cha
     fclose(file);
     fclose(temp_file);
 
-    // Remove the original file and rename the temporary file
-    remove(filename); // Remove original file
-    rename("temp.txt", filename); // Rename temporary file
+    // Replace the original file with the temporary file
+    if (strcmp(mode, "Admin") == 0) {
+        remove("Admin_credentials.txt"); // Remove original file
+        rename("temp.txt", "Admin_credentials.txt"); // Rename temporary file
+    } else if (strcmp(mode, "Medical") == 0) {
+        remove("Medical_credentials.txt"); // Remove original file
+        rename("temp.txt", "Medical_credentials.txt"); // Rename temporary file
+    } else if (strcmp(mode, "Support") == 0) {
+        remove("Support_credentials.txt"); // Remove original file
+        rename("temp.txt", "Support_credentials.txt"); // Rename temporary file
+    }
+}
+
+const char* namesender() {
+    return logged_in_username;
 }
