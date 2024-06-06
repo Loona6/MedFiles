@@ -1,66 +1,11 @@
 # depslib dependency file v1.0
-1717432899 source:e:\new folder\add appointment.c
+1717606049 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\medfiles\main.c
 	<stdio.h>
 	<stdlib.h>
-	<time.h>
-	<math.h>
-	<string.h>
+	<Windows.h>
+	<unistd.h>
 
-1717432869 source:e:\new folder\add patient.c
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-	<math.h>
-	<string.h>
-
-1717432443 source:e:\new folder\admin menu.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-
-1717432810 source:e:\new folder\cabin booking.c
-	<stdio.h>
-	<string.h>
-	<stdio.h>
-	<stdbool.h>
-
-1717432719 source:e:\new folder\display appointments.c
-	<stdio.h>
-	<string.h>
-	<stdbool.h>
-	<stdlib.h>
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-
-1717432768 source:e:\new folder\display patient.c
-	<stdio.h>
-	<string.h>
-	<stdbool.h>
-	<stdlib.h>
-
-1717434878 source:e:\new folder\pass login.c
-	<stdio.h>
-	<string.h>
-
-1717434234 source:e:\new folder\medfiles\main.c
-	<stdio.h>
-	<stdlib.h>
-
-1717434833 source:e:\new folder\primary login.c
-	<stdio.h>
-	<string.h>
-	<stdlib.h>
-
-1717433974 source:e:\new folder\admin pass.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-
-1717507425 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\add appointment.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
+1717596892 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\add appointment.c
 
 1717504420 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\add patient.c
 	<stdio.h>
@@ -85,37 +30,35 @@
 	<stdio.h>
 	<stdbool.h>
 
-1717497305 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\display appointments.c
-	<stdio.h>
-	<string.h>
-	<stdbool.h>
-	<stdlib.h>
+1717615517 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\display appointments.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-
-1717499894 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\display patient.c
-	<stdio.h>
-	<string.h>
-	<stdlib.h>
-	<ctype.h>
-
-1717497305 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\pass login.c
-	<stdio.h>
-	<string.h>
-
-1717510675 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\primary login.c
-	<stdio.h>
-	<string.h>
-	<stdlib.h>
-
-1717497305 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\medfiles\main.c
-	<stdio.h>
-	<stdlib.h>
+	<dirent.h>
+	<sys/stat.h>
+	<time.h>
 
 1717497305 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\lab test booking.c
 	<stdio.h>
 	<stdbool.h>
 	<string.h>
 	<stdio.h>
+
+1717603956 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\primary login.c
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+	<stdlib.h>
+
+1717605919 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\medfiles\sha256.c
+	<stdint.h>
+	<string.h>
+	"sha256.h"
+
+1717605366 e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\medfiles\sha256.h
+	<stdint.h>
+
+1717626405 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\pass login.c
+	<stdio.h>
+	<string.h>
 

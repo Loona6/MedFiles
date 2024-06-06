@@ -35,51 +35,9 @@ void clear_input_buffer() {
 
 
 
-// Declare functions before their usage
-void clear_appointments(const char* filename);
-int is_today(const char* date);
-
-// Function to clear appointments in the CSV file
-void clear_appointments(const char* docname) {
-    FILE *file = fopen(create_appointment_filename(docname), "r+");
-    if (file != NULL) {
-        char line[256];
-        // Skip the header line
-        if (fgets(line, sizeof(line), file) == NULL) {
-            perror("Error reading file");
-            fclose(file);
-            return;
-        }
-        FILE *tempFile = fopen("temp.csv", "w");
-        if (tempFile == NULL) {
-            perror("Error creating temporary file");
-            fclose(file);
-            return;
-        }
-        while (fgets(line, sizeof(line), file)) {
-            // Tokenize the line to extract the date (assuming it's in the third column)
-            char *token = strtok(line, ",");
-            for (int i = 0; i < 2 && token != NULL; ++i) {
-                token = strtok(NULL, ",");
-            }
-            if (token != NULL) {
-                // Trim any leading/trailing whitespace from the date
-                char *date = strtok(token, " \t\n");
-                printf("Parsed date: %s\n", date);
-                if (date != NULL && !is_today(date)) {
-                    fputs(line, tempFile);
-                }
-            }
-        }
-        fclose(file);
-        fclose(tempFile);
-        remove(docname);
-        rename("temp.csv", docname);
-        printf("Appointments removed from %s\n", docname);
-    } else {
-        perror("Error opening file");
-    }
-}
+#define FILENAME "appointments.csv"
+#define TEMP_FILENAME "temp.csv"
+#define MAX_LINE_LENGTH 256
 
 // Function to check if an appointment's date is today
 int is_today(const char* date) {
@@ -87,13 +45,87 @@ int is_today(const char* date) {
     struct tm *local = localtime(&now);
 
     char today_date[20];
-
     strftime(today_date, sizeof(today_date), "%Y/%m/%d", local);
-    printf("%s", today_date);
+    printf("Today's date: %s\n", today_date);
 
     return strcmp(date, today_date) == 0;
 }
 
+// Function to clear appointments in the CSV file
+void clear_appointments(const char* docname) {
+    FILE *file = fopen(create_appointment_filename(docname), "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    FILE *tempFile = fopen(TEMP_FILENAME, "w");
+    if (tempFile == NULL) {
+        perror("Error creating temporary file");
+        fclose(file);
+        return;
+    }
+
+    char line[MAX_LINE_LENGTH];
+    int found = 0;
+
+    // Copy the header line
+    if (fgets(line, sizeof(line), file) == NULL) {
+        printf("Error: file is empty.\n");
+        fclose(file);
+        fclose(tempFile);
+        remove(TEMP_FILENAME); // Clean up temporary file
+        return;
+    }
+    fputs(line, tempFile);
+
+    // Process each line
+    while (fgets(line, sizeof(line), file) != NULL) {
+        // Tokenize the line to extract the date (assuming it's in the third column)
+        char temp_line[MAX_LINE_LENGTH];
+        strcpy(temp_line, line);
+        char *token = strtok(temp_line, ",");
+        for (int i = 0; i < 2 && token != NULL; ++i) {
+            token = strtok(NULL, ",");
+        }
+        if (token != NULL) {
+            // Trim any leading/trailing whitespace from the date
+            char *date = strtok(token, " \t\n");
+            printf("Parsed date: %s\n", date);
+            if (date != NULL && !is_today(date)) {
+                fputs(line, tempFile);
+            } else {
+                found = 1;
+            }
+        }
+    }
+
+    fclose(file);
+    fclose(tempFile);
+
+    if (found) {
+        if (remove(create_appointment_filename(docname)) != 0) {
+            perror("Error deleting original file");
+            return;
+        }
+        if (rename(TEMP_FILENAME, create_appointment_filename(docname)) != 0) {
+            perror("Error renaming temporary file");
+            return;
+        }
+        printf("Appointments removed from %s\n", create_appointment_filename(docname));
+    } else {
+        remove(TEMP_FILENAME);
+        printf("No appointments for today found in %s.\n", create_appointment_filename(docname));
+    }
+
+    // Prompt to press Enter before clearing screen
+    printf("Press Enter to continue...");
+    getchar(); // Clear input buffer
+    getchar(); // Wait for Enter key
+
+    // Placeholder for screen clearing function
+    // clear_screen();
+}
 
 
 // Function to add an appointment to the CSV file

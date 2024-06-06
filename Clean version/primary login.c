@@ -1,11 +1,16 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+
 #include <stdlib.h>
 #define MAX_USERNAME_LENGTH 20
 #define MAX_PASSWORD_LENGTH 20
 char username[MAX_USERNAME_LENGTH];
 char docname[MAX_USERNAME_LENGTH];
 char mode[20];
+
+
+
 void pri_login()
 {
     system("color F0");
@@ -167,7 +172,7 @@ void support_menu()
         printf("\t\t\t3. Book Ambulance service\n");
         printf("\t\t\t4. View available Lab tests and prices\n");
         printf("\t\t\t5. View availabe cabin services\n");
-        printf("\t\t\t6. Book lab tests/cabin(or both)\n");
+        printf("\t\t\t6. Clear Appointment\n");
         printf("\t\t\t7. Book appointment\n");
         printf("\t\t\t8. View appointment\n");
         printf("\t\t\t9. Return to Main Menu\n\n");
@@ -218,12 +223,22 @@ void support_menu()
 
             break;
         case '6':
-            // book lab test + cabin
-            bookTest();
+            printf("Enter doctor's name: ");
+            fgets(docname, MAX_USERNAME_LENGTH, stdin);
+
+            // Remove newline character from the doctor's name
+            docname[strcspn(docname, "\n")] = '\0';
+            clear_appointments(docname);
             break;
         case '8':
             // view appointment
-            //();
+            printf("Enter doctor's name: ");
+            fgets(docname, MAX_USERNAME_LENGTH, stdin);
+
+            // Remove newline character from the doctor's name
+            docname[strcspn(docname, "\n")] = '\0';
+
+            display_appointments(docname);
             break;
         case '7':
             // book appointment
@@ -319,7 +334,7 @@ void med_menu()
             }
         case '4':
             //view appointments
-            display_appointments();
+            display_appointments(namesender());
             break;
         case '5':
             //search patient
