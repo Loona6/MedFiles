@@ -31,54 +31,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="../add appointment.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../add patient.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../admin menu.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../admin pass.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../cabin booking.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../display appointments.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../lab test booking.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../pass login.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../primary login.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Admin_credentials.txt" />
-		<Unit filename="MEDFILES.cbp" />
-		<Unit filename="Medical_credentials.txt" />
-		<Unit filename="Support_credentials.txt" />
-		<Unit filename="ambulance_services.csv" />
-		<Unit filename="appointments.csv" />
-		<Unit filename="bill.txt" />
-		<Unit filename="doctors.csv" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="patient.csv" />
-		<Unit filename="sha256.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="sha256.h" />
-		<Unit filename="staff.csv" />
-		<Unit filename="user1" />
-		<Unit filename="user1_appointments.csv" />
-		<Unit filename="user1_patient.csv" />
-		<Unit filename="user2_patient.csv" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

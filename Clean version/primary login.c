@@ -216,7 +216,7 @@ void support_menu()
             break;
         case '4':
             // view lab tests
-            displayAvailableTests();
+            //displayAvailableTests();
             break;
         case '5':
             // view cabin price
@@ -342,7 +342,7 @@ void med_menu()
             break;
         case '6':
             //add patient notes
-
+            Pdf();
             break;
         case '7':
             //view patient history

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <Windows.h>
 #include <unistd.h>
+#include "pdfgen.h"
 
 void set_console_color() {
     // ANSI escape codes to set background to white and text to black
