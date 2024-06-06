@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#define BUFFER_SIZE 256
 #define FILENAME2 "doctors.csv"
 #define MAX_ID_LENGTH 20
 #define FILENAME3 "staff.csv"
@@ -368,3 +368,4 @@ void display_ambulance() {
 
     clear_screen(); // Clear screen after operation
 }
+

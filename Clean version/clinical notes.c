@@ -7,6 +7,7 @@
 #include "pdfgen.h"
 
 #define BUFFER_SIZE 1024
+#define LINE_WIDTH 80  // Adjust this value based on your PDF width and font size
 
 typedef struct {
     char patient_problem[BUFFER_SIZE];
@@ -24,6 +25,7 @@ void get_current_date(char *date_str, size_t size);
 int file_exists(const char *filename);
 int create_directory(const char *dirname);
 int create_new_pdf(const char *filepath, ClinicalInfo *info);
+void add_wrapped_text(struct pdf_doc *pdf, const char *text, int font_size, int x, int *y, int line_width);
 
 // Function to collect clinical information from user input
 void collect_info(ClinicalInfo *info) {
@@ -98,6 +100,28 @@ int create_directory(const char *dirname) {
     return 0; // Directory already exists
 }
 
+// Function to add wrapped text to the PDF
+void add_wrapped_text(struct pdf_doc *pdf, const char *text, int font_size, int x, int *y, int line_width) {
+    char buffer[BUFFER_SIZE];
+    const char *ptr = text;
+    while (strlen(ptr) > line_width) {
+        strncpy(buffer, ptr, line_width);
+        buffer[line_width] = '\0';
+        char *last_space = strrchr(buffer, ' ');
+        if (last_space) {
+            *last_space = '\0';
+            pdf_add_text(pdf, NULL, buffer, font_size, x, *y, PDF_BLACK);
+            ptr += (last_space - buffer) + 1;
+        } else {
+            pdf_add_text(pdf, NULL, buffer, font_size, x, *y, PDF_BLACK);
+            ptr += line_width;
+        }
+        *y -= 20;
+    }
+    pdf_add_text(pdf, NULL, ptr, font_size, x, *y, PDF_BLACK);
+    *y -= 20;
+}
+
 // Function to create a new PDF file with clinical information
 int create_new_pdf(const char *filepath, ClinicalInfo *info) {
     struct pdf_info pdf_info = {
@@ -116,21 +140,48 @@ int create_new_pdf(const char *filepath, ClinicalInfo *info) {
 
     pdf_append_page(pdf);
     pdf_set_font(pdf, "Times-Roman");
-    pdf_add_text(pdf, NULL, "Clinical Information:", 12, 50, 750, PDF_BLACK);
-    pdf_add_text(pdf, NULL, "Patient Problem:                     ", 12, 50, 730, PDF_BLACK);
-    pdf_add_text(pdf, NULL, info->patient_problem, 12, 200, 730, PDF_BLACK);
-    pdf_add_text(pdf, NULL, "Past Medical History:          ", 12, 50, 710, PDF_BLACK);
-    pdf_add_text(pdf, NULL, info->past_medical_history, 12, 200, 710, PDF_BLACK);
-    pdf_add_text(pdf, NULL, "Drug History:                       ", 12, 50, 690, PDF_BLACK);
-    pdf_add_text(pdf, NULL, info->drug_history, 12, 200, 690, PDF_BLACK);
-    pdf_add_text(pdf, NULL, "Allergy Issues:                     ", 12, 50, 670, PDF_BLACK);
-    pdf_add_text(pdf, NULL, info->allergy_issues, 12, 200, 670, PDF_BLACK);
-    pdf_add_text(pdf, NULL, "On Examination:                   ", 12, 50, 650, PDF_BLACK);
-    pdf_add_text(pdf, NULL, info->on_examination, 12, 200, 650, PDF_BLACK);
-    pdf_add_text(pdf, NULL, "Prognosis:                            ", 12, 50, 630, PDF_BLACK);
-    pdf_add_text(pdf, NULL, info->prognosis, 12, 200, 630, PDF_BLACK);
-    pdf_add_text(pdf, NULL, "Advice:                                  ", 12, 50, 610, PDF_BLACK);
-    pdf_add_text(pdf, NULL, info->advice, 12, 200, 610, PDF_BLACK);
+
+    int y = 800;  // Starting y position for the title
+
+    // Add title
+    pdf_add_text(pdf, NULL, "Prescription", 16, PDF_A4_WIDTH / 2 - 50, y, PDF_BLACK);
+    y -= 50;  // Move to the next section
+
+    pdf_add_text(pdf, NULL, "Clinical Information:", 12, 50, y, PDF_BLACK);
+    y -= 20;  // Move to the next line
+    pdf_add_text(pdf, NULL, "Patient Problem:", 12, 50, y, PDF_BLACK);
+    y -= 20;
+    add_wrapped_text(pdf, info->patient_problem, 12, 50, &y, LINE_WIDTH);
+    y -= 20;  // Add extra space between sections
+
+    pdf_add_text(pdf, NULL, "Past Medical History:", 12, 50, y, PDF_BLACK);
+    y -= 20;
+    add_wrapped_text(pdf, info->past_medical_history, 12, 50, &y, LINE_WIDTH);
+    y -= 20;
+
+    pdf_add_text(pdf, NULL, "Drug History:", 12, 50, y, PDF_BLACK);
+    y -= 20;
+    add_wrapped_text(pdf, info->drug_history, 12, 50, &y, LINE_WIDTH);
+    y -= 20;
+
+    pdf_add_text(pdf, NULL, "Allergy Issues:", 12, 50, y, PDF_BLACK);
+    y -= 20;
+    add_wrapped_text(pdf, info->allergy_issues, 12, 50, &y, LINE_WIDTH);
+    y -= 20;
+
+    pdf_add_text(pdf, NULL, "On Examination:", 12, 50, y, PDF_BLACK);
+    y -= 20;
+    add_wrapped_text(pdf, info->on_examination, 12, 50, &y, LINE_WIDTH);
+    y -= 20;
+
+    pdf_add_text(pdf, NULL, "Prognosis:", 12, 50, y, PDF_BLACK);
+    y -= 20;
+    add_wrapped_text(pdf, info->prognosis, 12, 50, &y, LINE_WIDTH);
+    y -= 20;
+
+    pdf_add_text(pdf, NULL, "Advice:", 12, 50, y, PDF_BLACK);
+    y -= 20;
+    add_wrapped_text(pdf, info->advice, 12, 50, &y, LINE_WIDTH);
 
     pdf_save(pdf, filepath);
     pdf_destroy(pdf);
@@ -157,7 +208,7 @@ int Pdf() {
 
     // Create the directory if it doesn't exist
     if (create_directory(dirname) != 0) {
-        fprintf(stderr, "Error: Failed to create directory %s.\n", dirname);
+        fprintf(stderr,"Error: Failed to create directory %s.\n", dirname);
         return 1;
     }
 
