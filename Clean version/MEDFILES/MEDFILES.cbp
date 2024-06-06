@@ -49,6 +49,9 @@
 		<Unit filename="../primary login.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="../support_menus.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="987654.pdf" />
 		<Unit filename="Admin_credentials.txt" />
 		<Unit filename="HelveticaNeueBold.ttf" />

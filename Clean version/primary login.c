@@ -212,13 +212,13 @@ void support_menu()
             break;
         case '3':
             // Book ambulance
-            //book_ambulance();
+            book_ambulance();
             break;
         case '4':
-            //unbook_ambulance();
+            unbook_ambulance();
             break;
         case '5':
-            //mainMenuforlabtest();
+            mainMenuforlabtest();
             break;
         case '10':
             // book lab test + cabin
@@ -253,7 +253,7 @@ void support_menu()
             add_appointment(docname);
             break;
         case '6':
-            //mainMenuforcabin();
+            mainMenuforcabin();
             break;
         case '11':
             return;  // Return to Main Menu

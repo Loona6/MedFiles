@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define BUFFER_SIZE 256
+
 #define FILENAME2 "doctors.csv"
 #define MAX_ID_LENGTH 20
 #define FILENAME3 "staff.csv"
@@ -352,7 +352,7 @@ void display_ambulance() {
         token = strtok(NULL, ",");
         if (token != NULL) strcpy(ambulance.status, token);
         count++;
-        printf("%-20s%-20s%-20s\n", ambulance.number, ambulance.contact,ambulance.status);
+        printf("%-20s%-20s%-20s\n", ambulance.number, ambulance.contact, ambulance.status);
     }
 
     fclose(file);
@@ -369,3 +369,124 @@ void display_ambulance() {
     clear_screen(); // Clear screen after operation
 }
 
+void book_ambulance() {
+    FILE *file = fopen(FILENAME, "r+");
+    if (file == NULL) {
+        printf("Error opening file.\n");
+        return;
+    }
+
+    struct Ambulance ambulances[100];
+    int count = 0;
+
+    // Read ambulances from file
+    char line[1024];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        sscanf(line, "%[^,],%[^,],%s", ambulances[count].number, ambulances[count].contact, ambulances[count].status);
+        count++;
+    }
+
+    printf("Unbooked Ambulances:\n");
+    int unbookedCount = 0;
+    for (int i = 0; i < count; i++) {
+        if (strcmp(ambulances[i].status, "Unbooked") == 0) {
+            printf("%d. %s\n", i + 1, ambulances[i].number);
+            unbookedCount++;
+        }
+    }
+
+    if (unbookedCount == 0) {
+        printf("No unbooked ambulances available.\n");
+        fclose(file);
+        return;
+    }
+
+    int choice;
+    printf("Enter the number of the ambulance you want to book: ");
+    scanf("%d", &choice);
+
+    if (choice < 1 || choice > count || strcmp(ambulances[choice - 1].status, "Unbooked") != 0) {
+        printf("Invalid choice.\n");
+        fclose(file);
+        return;
+    }
+
+    strcpy(ambulances[choice - 1].status, "Booked");
+
+    // Write updated ambulances back to file
+    freopen(FILENAME, "w", file);
+    for (int i = 0; i < count; i++) {
+        fprintf(file, "%s,%s,%s\n", ambulances[i].number, ambulances[i].contact, ambulances[i].status);
+    }
+
+    fclose(file);
+    printf("Ambulance booked successfully.\n");
+
+    // Prompt to press Enter before clearing screen
+    printf("Press Enter to continue...");
+    getchar(); // Clear input buffer
+    getchar(); // Wait for Enter key
+
+    clear_screen(); // Clear screen after operation
+}
+
+void unbook_ambulance() {
+    FILE *file = fopen(FILENAME, "r+");
+    if (file == NULL) {
+        printf("Error opening file.\n");
+        return;
+    }
+
+    struct Ambulance ambulances[100];
+    int count = 0;
+
+    // Read ambulances from file
+    char line[1024];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        sscanf(line, "%[^,],%[^,],%s", ambulances[count].number, ambulances[count].contact, ambulances[count].status);
+        count++;
+    }
+
+    printf("Booked Ambulances:\n");
+    int bookedCount = 0;
+    for (int i = 0; i < count; i++) {
+        if (strcmp(ambulances[i].status, "Booked") == 0) {
+            printf("%d. %s\n", i + 1, ambulances[i].number);
+            bookedCount++;
+        }
+    }
+
+    if (bookedCount == 0) {
+        printf("No booked ambulances available.\n");
+        fclose(file);
+        return;
+    }
+
+    int choice;
+    printf("Enter the number of the ambulance you want to unbook: ");
+    scanf("%d", &choice);
+
+    if (choice < 1 || choice > count || strcmp(ambulances[choice - 1].status, "Booked") != 0) {
+        printf("Invalid choice.\n");
+        fclose(file);
+        return;
+    }
+
+    strcpy(ambulances[choice - 1].status, "Unbooked");
+
+    // Write updated ambulances back to file
+    freopen(FILENAME, "w", file);
+    for (int i = 0; i < count; i++) {
+        fprintf(file, "%s,%s,%s\n", ambulances[i].number, ambulances[i].contact, ambulances[i].status);
+    }
+
+    fclose(file);
+    printf("Ambulance unbooked successfully.\n");
+
+    // Prompt to press Enter before clearing screen
+    printf("Press Enter to continue...");
+    getchar(); // Clear input buffer
+    getchar(); // Wait for Enter key
+
+    clear_screen(); // Clear screen after operation
+}
