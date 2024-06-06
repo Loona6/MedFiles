@@ -166,33 +166,33 @@ void support_menu()
 
     do
     {
-        printf("\t\t\t\t\t\tWelcome to Support Staff Menu\n\n\n");
+        printf("\n\n\n\t\t\t\t\t\tWelcome to Support Staff Menu\n\n\n");
         printf("\t\t\t1. Change password\n");
         printf("\t\t\t2. View Ambulance list\n");
         printf("\t\t\t3. Book Ambulance service\n");
-        printf("\t\t\t4. View available Lab tests and prices\n");
-        printf("\t\t\t5. View availabe cabin services\n");
-        printf("\t\t\t6. Clear Appointment\n");
+        printf("\t\t\t4. Unbook Ambulance service\n");
+        printf("\t\t\t5. View and book lab tests\n");
+        printf("\t\t\t6. View and book cabin services\n");
         printf("\t\t\t7. Book appointment\n");
         printf("\t\t\t8. View appointment\n");
-        printf("\t\t\t9. Return to Main Menu\n\n");
+        printf("\t\t\t9. Clear appointment\n");
+        printf("\t\t\t10. View billing history\n");
+        printf("\t\t\t11. Return to Main Menu\n\n");
 
         do
         {
-            printf("Enter option: ");
+            printf("\t\t\tEnter option: ");
             scanf("%c", &choice);
             while (getchar() != '\n');  // Clear input buffer
             system("cls");
 
-            if (choice < '1'|| choice > '9')
+            if (choice < '1'|| choice > '11')
             {
-                printf("Invalid mode choice. Please enter a number between 1 and 8.\n");
+                printf("Invalid mode choice. Please enter a number between 1 and 9.\n");
             }
         }
-        while (choice < '1' || choice > '9');
-
-        switch (choice)
-        {
+        while (choice < '1' || choice > '11');
+        switch (choice){
         case '1':
              // change password
             printf("Enter username: ");
@@ -212,17 +212,19 @@ void support_menu()
             break;
         case '3':
             // Book ambulance
-
+            book_ambulance();
             break;
         case '4':
-            // view lab tests
-            //displayAvailableTests();
+            unbook_ambulance();
             break;
         case '5':
-            // view cabin price
-
+            mainMenuforlabtest();
             break;
-        case '6':
+        case '10':
+            // book lab test + cabin
+            bookTest();
+            break;
+        case '9':
             printf("Enter doctor's name: ");
             fgets(docname, MAX_USERNAME_LENGTH, stdin);
 
@@ -250,21 +252,25 @@ void support_menu()
 
             add_appointment(docname);
             break;
-        case '9':
+        case '6':
+            mainMenuforcabin();
+            break;
+        case '11':
             return;  // Return to Main Menu
+
         default:
             printf("Invalid choice.\n");
             break;
         }
 
-        if (choice != '8')
+        if (choice != '11')
         {
             printf("Press any key to continue...\n");
             getchar();  // Wait for a key press
             system("cls");  // Clear screen
         }
     }
-    while (choice != '8');
+    while (choice != '11');
 }
 
 void med_menu()
