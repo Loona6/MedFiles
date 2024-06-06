@@ -342,6 +342,7 @@ void med_menu()
             break;
         case '6':
             //add patient notes
+
             Pdf();
             break;
         case '7':
