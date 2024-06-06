@@ -212,13 +212,13 @@ void support_menu()
             break;
         case '3':
             // Book ambulance
-            book_ambulance();
+            //book_ambulance();
             break;
         case '4':
-            unbook_ambulance();
+            //unbook_ambulance();
             break;
         case '5':
-            mainMenuforlabtest();
+            //mainMenuforlabtest();
             break;
         case '10':
             // book lab test + cabin
@@ -253,7 +253,7 @@ void support_menu()
             add_appointment(docname);
             break;
         case '6':
-            mainMenuforcabin();
+            //mainMenuforcabin();
             break;
         case '11':
             return;  // Return to Main Menu
@@ -286,8 +286,7 @@ void med_menu()
         printf("\t\t\t4. View Scheduled Appointments\n");
         printf("\t\t\t5. Search Patient\n");
         printf("\t\t\t6. Add Patient notes\n");
-        printf("\t\t\t7. View Patient history\n");
-        printf("\t\t\t8. Return to Main Menu\n\n");
+        printf("\t\t\t7. Return to Main Menu\n\n");
 
         do
         {
@@ -296,12 +295,12 @@ void med_menu()
             while (getchar() != '\n');  // Clear input buffer
             system("cls");
 
-            if (choice < '1' || choice > '8')
+            if (choice < '1' || choice > '7')
             {
                 printf("Invalid mode choice. Please enter a number between 1 and 7.\n");
             }
         }
-        while (choice < '1' || choice > '8');
+        while (choice < '1' || choice > '7');
 
         switch (choice)
         {
@@ -348,26 +347,22 @@ void med_menu()
             break;
         case '6':
             //add patient notes
-
             Pdf();
             break;
-        case '7':
-            //view patient history
 
-            break;
-        case '8':
+        case '7':
             return;  // Return to Main Menu
         default:
             printf("Invalid choice.\n");
             break;
         }
 
-        if (choice != '8')
+        if (choice != '7')
         {
             printf("Press any key to continue...\n");
             getchar();  // Wait for a key press
             system("cls");  // Clear screen
         }
     }
-    while (choice != '8');
+    while (choice != '7');
 }
