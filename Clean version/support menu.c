@@ -17,7 +17,7 @@ struct LabTest {
 
 // Initialize lab tests
 void initializeLabTests(struct LabTest tests[], int numTests) {
-    char* testNames[] = {"Blood Test\t\t500 tk", "X-ray\t\t1000 tk", "MRI\t\t\t3000 tk", "Ultrasound\t\t2000 tk", "CT Scan\t\t3000 tk"};
+    char* testNames[] = {"Blood Test\t\t\t500 tk", "X-ray\t\t\t1000 tk", "MRI\t\t\t\t3000 tk", "Ultrasound\t\t\t2000 tk", "CT Scan\t\t\t3000 tk"};
     for (int i = 0; i < numTests; i++) {
         tests[i].testID = i + 1;
         strcpy(tests[i].testName, testNames[i % 5]);
@@ -33,6 +33,9 @@ void displayAvailableTests(struct LabTest tests[], int numTests) {
             printf("\n%10d. %s\n", tests[i].testID, tests[i].testName);
         }
     }
+    printf("\n\t\t\tPress Enter to continue...");
+    getchar();  // Wait for user input
+    system("cls");
 }
 
 // Display booked lab tests
@@ -56,6 +59,7 @@ void calculateTotalBill(struct LabTest tests[], int numTests) {
     int bloodTest = 0, xray = 0, mri = 0, ultrasound = 0, ctscan = 0;
     int totalBill = 0;
     char name[100];
+    char contactNumber[20];
     FILE *file;
 
     file = fopen("bill.txt", "a");
@@ -64,8 +68,12 @@ void calculateTotalBill(struct LabTest tests[], int numTests) {
         return;
     }
 
-    printf("\n\tEnter the patient's name: ");
+    printf("\n\tEnter the patient's first name: ");
     scanf("%s", name);
+    getchar();  // Clear input buffer
+    printf("\n\tEnter the patient's contact number: ");
+    scanf("%s", contactNumber);
+    getchar();  // Clear input buffer
 
     for (int i = 0; i < numTests; i++) {
         if (tests[i].testisBooked) {
@@ -94,8 +102,8 @@ void calculateTotalBill(struct LabTest tests[], int numTests) {
                 (mri * MRI_PRICE) +
                 (ultrasound * ULTRASOUND_PRICE) + (ctscan * CTSCAN_PRICE);
 
-    fprintf(file, "Patient's name: %s\n", name);
-    fprintf(file, "Total bill:\n");
+    fprintf(file, "\n\nPatient's name: %s\n", name);
+    fprintf(file, "Patient's contact number: %s\n", contactNumber);
     if (bloodTest > 0) {
         fprintf(file, "Blood Test(s): %d x 500 = %d taka\n", bloodTest, bloodTest * BLOOD_TEST_PRICE);
     }
@@ -116,24 +124,30 @@ void calculateTotalBill(struct LabTest tests[], int numTests) {
 
     fclose(file);
 
-    printf("\nTotal bill: %d taka\n", totalBill);
-    printf("\nBill has been saved to bill.txt\n");
+    printf("\n\n\t\t\tTotal bill: %d taka\n", totalBill);
+    printf("\n\t\t\tBill has been saved to bill.txt\n");
+
+    // Prompt the user to press Enter to continue and clear the screen
+    printf("\n\t\t\tPress Enter to continue...");
+    getchar();  // Wait for user input
+    system("cls");
 }
 
 void bookTest(struct LabTest tests[], int numTests) {
     char choice;
-    printf("\n\tPlease select the tests you want to book:\n");
+    printf("\nPlease select the tests you want to book:\n");
 
-    printf("\n\t\t1. Blood Test  (500 taka)\n");
-    printf("\n\t\t2. X-Ray  (1000 taka)\n");
-    printf("\n\t\t3. MRI  (3000 taka)\n");
-    printf("\n\t\t4. Ultrasound  (2000 taka)\n");
-    printf("\n\t\t5. CTSCAN  (3000 taka)\n");
-    printf("\n\t\t6. Finish Booking\n");
+    printf("\n\t1. Blood Test  (500 taka)\n");
+    printf("\t2. X-Ray  (1000 taka)\n");
+    printf("\t3. MRI  (3000 taka)\n");
+    printf("\t4. Ultrasound  (2000 taka)\n");
+    printf("\t5. CTSCAN  (3000 taka)\n");
+    printf("\t6. Finish Booking\n");
 
     while (1) {
         printf("\nEnter your choice: ");
         scanf(" %c", &choice);
+        getchar();  // Clear input buffer
 
         if (choice == '6') {
             system("cls");
@@ -185,18 +199,24 @@ void bookTest(struct LabTest tests[], int numTests) {
                 printf("Invalid choice, please select a valid option.\n");
         }
     }
+
+    // Prompt the user to press Enter to continue and clear the screen
+    printf("\nPress Enter to continue...");
+    getchar();  // Wait for user input
+    system("cls");
 }
 
 void cancelBooking(struct LabTest tests[], int numTests) {
     char choice;
 
-    printf("\n\tPlease select the tests you want to cancel:\n");
+    printf("\nPlease select the tests you want to cancel:\n");
     displayBookedTests(tests, numTests);
-    printf("\n\t 6. Finish Cancellation\n");
+    printf("\n\t\t 6. Finish Cancellation\n");
 
     while (1) {
         printf("\nEnter your choice: ");
         scanf(" %c", &choice);
+        getchar();  // Clear input buffer
 
         if (choice == '6') {
             system("cls");
@@ -248,6 +268,11 @@ void cancelBooking(struct LabTest tests[], int numTests) {
                 printf("Invalid choice, please select a valid option.\n");
         }
     }
+
+    // Prompt the user to press Enter to continue and clear the screen
+    printf("\nPress Enter to continue...");
+    getchar();  // Wait for user input
+    system("cls");
 }
 
 int mainMenuforlabtest() {
@@ -264,6 +289,7 @@ int mainMenuforlabtest() {
         printf("\t\t\t\t5. Exit\n\n");
         printf("\t\t\t\tEnter your choice: ");
         scanf(" %c", &choice);
+        getchar();  // Clear input buffer
         system("cls");
 
         switch (choice) {
@@ -280,7 +306,7 @@ int mainMenuforlabtest() {
                 calculateTotalBill(tests, MAX_TESTS);
                 break;
             case '5':
-                printf("Exiting program...\n");
+                printf("Exiting...\n");
                 break;
             default:
                 printf("Invalid choice. Please enter a number between 1 and 5.\n");
@@ -290,130 +316,10 @@ int mainMenuforlabtest() {
     return 0;
 }
 
-
-struct CabinBooking {
-    int vipDays;
-    int generalWardDays;
-    int normalCabinDays;
-};
-
-// Display booked cabins
-void displayBookedCabins(struct CabinBooking booking) {
-    printf("\n\n\t\t\tBooked Cabins:\n");
-    if (booking.vipDays > 0) {
-        printf("\t\t\t1. VIP Cabin: %d days\n", booking.vipDays);
-    }
-    if (booking.generalWardDays > 0) {
-        printf("\t\t\t2. General Ward: %d days\n", booking.generalWardDays);
-    }
-    if (booking.normalCabinDays > 0) {
-        printf("\t\t\t3. Normal Cabin: %d days\n", booking.normalCabinDays);
-    }
-}
-
-// Book cabins
-struct CabinBooking bookCabin(struct CabinBooking booking) {
-    char choice;
-    int days;
-
-    printf("\n\n\t\tPlease select the type of cabin and number of days:\n");
-
-    printf("\n\t\t\t1. VIP Cabin (5000 taka per day)\n");
-    printf("\t\t\t2. General Ward (500 taka per day)\n");
-    printf("\t\t\t3. Normal Cabin (1500 taka per day)\n");
-    printf("\t\t\t4. Done\n");
-
-    while (1) {
-        printf("\t\t\tEnter your choice (1-4): ");
-        scanf(" %c", &choice);
-
-        if (choice == '4') {
-            system("cls");
-            break;
-        }
-
-        switch (choice) {
-            case '1':
-                printf("\t\t\tEnter number of days for VIP Cabin: ");
-                scanf("%d", &days);
-                booking.vipDays += days;
-                break;
-            case '2':
-                printf("\t\t\tEnter number of days for General Ward: ");
-                scanf("%d", &days);
-                booking.generalWardDays += days;
-                break;
-            case '3':
-                printf("\t\t\tEnter number of days for Normal Cabin: ");
-                scanf("%d", &days);
-                booking.normalCabinDays += days;
-                break;
-            default:
-                printf("\t\t\tInvalid choice, please select a valid option.\n");
-        }
-    }
-
-    return booking;
-}
-
-// Cancel cabins
-struct CabinBooking cancelCabin(struct CabinBooking booking) {
-    char choice;
-    int days;
-
-    printf("\n\n\t\tPlease select the type of cabin to cancel days:\n");
-    displayBookedCabins(booking);
-    printf("\t\t\t4. Done\n");
-
-    while (1) {
-        printf("\n\n\t\t\tEnter your choice (1-4): ");
-        scanf(" %c", &choice);
-
-        if (choice == '4') {
-            system("cls");
-            break;
-        }
-
-        switch (choice) {
-            case '1':
-                printf("\t\t\tEnter number of days to cancel for VIP Cabin: ");
-                scanf("%d", &days);
-                if (days <= booking.vipDays) {
-                    booking.vipDays -= days;
-                } else {
-                    printf("\t\t\tYou cannot cancel more days than booked.\n");
-                }
-                break;
-            case '2':
-                printf("\t\t\tEnter number of days to cancel for General Ward: ");
-                scanf("%d", &days);
-                if (days <= booking.generalWardDays) {
-                    booking.generalWardDays -= days;
-                } else {
-                    printf("\t\t\tYou cannot cancel more days than booked.\n");
-                }
-                break;
-            case '3':
-                printf("\t\t\tEnter number of days to cancel for Normal Cabin: ");
-                scanf("%d", &days);
-                if (days <= booking.normalCabinDays) {
-                    booking.normalCabinDays -= days;
-                } else {
-                    printf("\t\t\tYou cannot cancel more days than booked.\n");
-                }
-                break;
-            default:
-                printf("\t\t\tInvalid choice, please select a valid option.\n");
-        }
-    }
-
-    return booking;
-}
-
-// Calculate the total bill
-void calculateCabinBill(struct CabinBooking booking) {
+void calculateCabinBill(int vipDays, int generalWardDays, int normalCabinDays) {
     int totalBill = 0;
-    char name[1000];
+    char name[100];
+    char contactNumber[20];
     FILE *file;
 
     file = fopen("cabin_bill.txt", "a");
@@ -422,61 +328,166 @@ void calculateCabinBill(struct CabinBooking booking) {
         return;
     }
 
-    printf("\n\tEnter the patient's name: ");
-    scanf("%s", name);
+    printf("\n\t\t\tEnter the patient's name: ");
+    fgets(name, sizeof(name), stdin);
+    name[strcspn(name, "\n")] = 0;  // Remove the newline character
 
-    totalBill = (booking.vipDays * VIP_RATE) +
-                (booking.generalWardDays * GENERAL_WARD_RATE) +
-                (booking.normalCabinDays * NORMAL_CABIN_RATE);
+    printf("\t\t\tEnter the patient's contact number: ");
+    scanf("%s", contactNumber);
+    getchar();  // To consume the newline character left by scanf
 
-    fprintf(file, "\n\nPatient's name: %s\n", name);
-    if (booking.vipDays > 0) {
-        fprintf(file, "VIP Cabin: %d days x 5000 = %d taka\n", booking.vipDays, booking.vipDays * VIP_RATE);
+    totalBill = (vipDays * VIP_RATE) +
+                (generalWardDays * GENERAL_WARD_RATE) +
+                (normalCabinDays * NORMAL_CABIN_RATE);
+
+    fprintf(file, "\n\n\t\tPatient's name: %s\n", name);
+    fprintf(file, "\t\tPatient's contact number: %s\n", contactNumber);
+    if (vipDays > 0) {
+        fprintf(file, "\t\tVIP Cabin: %d days x 5000 = %d taka\n", vipDays, vipDays * VIP_RATE);
     }
-    if (booking.generalWardDays > 0) {
-        fprintf(file, "General Ward: %d days x 500 = %d taka\n", booking.generalWardDays, booking.generalWardDays * GENERAL_WARD_RATE);
+    if (generalWardDays > 0) {
+        fprintf(file, "\t\tGeneral Ward: %d days x 500 = %d taka\n", generalWardDays, generalWardDays * GENERAL_WARD_RATE);
     }
-    if (booking.normalCabinDays > 0) {
-        fprintf(file, "Normal Cabin: %d days x 1500 = %d taka\n", booking.normalCabinDays, booking.normalCabinDays * NORMAL_CABIN_RATE);
+    if (normalCabinDays > 0) {
+        fprintf(file, "\t\tNormal Cabin: %d days x 1500 = %d taka\n", normalCabinDays, normalCabinDays * NORMAL_CABIN_RATE);
     }
 
-    fprintf(file, "Total Bill: %d taka\n", totalBill);
+    fprintf(file, "\t\tTotal Bill: %d taka\n\n", totalBill);
 
     fclose(file);
 
-    printf("\nTotal bill: %d taka", totalBill);
-    printf("\nBill has been saved to cabin_bill.txt\n");
+    printf("\n\t\t\tTotal bill: %d taka\n", totalBill);
+    printf("\t\t\tBill has been saved to cabin_bill.txt\n");
+
+    // Prompt the user to press any key to continue and clear the screen
+    printf("\n\t\t\tPress Enter to continue...");
+    getchar();  // Wait for user input
+    system("cls");
 }
 
-// Main menu for cabin booking
 void mainMenuforcabin() {
-    struct CabinBooking booking = {0, 0, 0};
-    char choice;
+    int vipDays = 0;
+    int generalWardDays = 0;
+    int normalCabinDays = 0;
+    int choice;
 
     do {
-        printf("\n\n\t\t\t1. Book Cabin\n");
-        printf("\t\t\t2. Cancel Booking\n");
-        printf("\t\t\t3. Calculate Total Bill\n");
-        printf("\t\t\t4. Exit\n\n");
-        printf("\t\t\tEnter your choice: ");
-        scanf(" %c", &choice);
+        printf("\n\n\t\t1. Calculate Total Bill for VIP Cabin (5000 tk/day)");
+        printf("\n\t\t2. Calculate Total Bill for General Ward (500 tk/day)");
+        printf("\n\t\t3. Calculate Total Bill for Normal Cabin (1500 tk/day)");
+        printf("\n\t\t4. Exit\n");
+        printf("\n\t\tEnter your choice: ");
+        scanf("%d", &choice);
+        getchar();  // To consume the newline character left by scanf
+
+#ifdef _WIN32
         system("cls");
+#else
+        system("clear");
+#endif
 
         switch (choice) {
-            case '1':
-                booking = bookCabin(booking);
+            case 1:
+                printf("\n\t\t\tEnter the number of days for VIP Cabin: ");
+                scanf("%d", &vipDays);
+                getchar();  // To consume the newline character left by scanf
+                calculateCabinBill(vipDays, 0, 0);
                 break;
-            case '2':
-                booking = cancelCabin(booking);
+            case 2:
+                printf("\n\t\t\tEnter the number of days for General Ward: ");
+                scanf("%d", &generalWardDays);
+                getchar();  // To consume the newline character left by scanf
+                calculateCabinBill(0, generalWardDays, 0);
                 break;
-            case '3':
-                calculateCabinBill(booking);
+            case 3:
+                printf("\n\t\t\tEnter the number of days for Normal Cabin: ");
+                scanf("%d", &normalCabinDays);
+                getchar();  // To consume the newline character left by scanf
+                calculateCabinBill(0, 0, normalCabinDays);
                 break;
-            case '4':
+            case 4:
                 printf("Exiting...\n");
                 break;
             default:
-                printf("Invalid choice. Please enter a number between 1 and 4.\n");
+                printf("\\n\t\t\t\Invalid choice. Please enter a number between 1 and 4.\n");
         }
-    } while (choice != '4');
+
+#ifdef _WIN32
+        system("cls");
+#else
+        system("clear");
+#endif
+
+    } while (choice != 4);
+}
+
+void viewLabTestBillingHistory() {
+    FILE *file;
+    char line[1000];
+
+    file = fopen("bill.txt", "r");
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+    printf("\n\t\t\tPress Enter to continue...");
+    getchar();  // Wait for user input
+    system("cls");
+    printf("\n\t\t\tLab Test Billing History:\n\n\n");
+    while (fgets(line, sizeof(line), file)) {
+        printf("\t\t%s", line);
+    }
+    printf("\n\t\t\tPress Enter to continue...");
+    getchar();  // Wait for user input
+    system("cls");
+    fclose(file);
+}
+
+void viewCabinBillingHistory() {
+    FILE *file;
+    char line[1000];
+
+    file = fopen("cabin_bill.txt", "r");
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+    printf("\n\t\t\tPress Enter to continue...");
+    getchar();  // Wait for user input
+    system("cls");
+    printf("\n\t\t\tCabin Billing History:\n");
+    while (fgets(line, sizeof(line), file)) {
+        printf("%s", line);
+    }
+    printf("\n\t\t\tPress Enter to continue...");
+    getchar();  // Wait for user input
+    system("cls");
+    fclose(file);
+}
+
+void viewBillingHistory() {
+    int choice;
+
+    do {
+        printf("\n\t\t\t1. View Lab Test Billing History\n");
+        printf("\t\t\t2. View Cabin Billing History\n");
+        printf("\t\t\t3. Back to Main Menu\n");
+        printf("\n\t\t\tEnter your choice: ");
+        scanf("%d", &choice);
+        getchar();  // Clear input buffer
+
+        switch (choice) {
+            case 1:
+                viewLabTestBillingHistory();
+                break;
+            case 2:
+                viewCabinBillingHistory();
+                break;
+            case 3:
+                printf("\n\n\t\tReturning to Main Menu...\n");
+                break;
+            default:
+                printf("\t\t\tInvalid choice. Please enter a number between 1 and 3.\n");
+        }
+    } while (choice != 3);
 }

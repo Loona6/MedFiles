@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
-#include <sys/types.h>
+
 #include "pdfgen.h"
 
 #define BUFFER_SIZE 1024
@@ -185,7 +185,7 @@ int create_new_pdf(const char *filepath, ClinicalInfo *info) {
 
     pdf_save(pdf, filepath);
     pdf_destroy(pdf);
-    printf("PDF file %s generated successfully.\n", filepath);
+    printf("PDF file generated successfully.\n");
     return 0;
 }
 
@@ -196,7 +196,7 @@ int Pdf() {
     char dirname[BUFFER_SIZE];
     char filename[BUFFER_SIZE];
     char date_str[BUFFER_SIZE];
-    const char *base_directory = "E:\\coding\\CodeBlocks\\MinGW\\bin\\Lab final Project\\MedFiles\\MedFiles\\Clean version\\MEDFILES\\Patients";
+    const char *base_directory = "C:\\Users\\maisha128\\OneDrive\\Desktop\\final final project\\MedFiles\\Clean version\\MEDFILES\\Patients";
 
     // Collect the patient ID
     printf("Enter patient ID: ");

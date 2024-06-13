@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
+
 
 #include <stdlib.h>
 #define MAX_USERNAME_LENGTH 20
@@ -169,15 +169,14 @@ void support_menu()
         printf("\n\n\n\t\t\t\t\t\tWelcome to Support Staff Menu\n\n\n");
         printf("\t\t\t1. Change password\n");
         printf("\t\t\t2. View Ambulance list\n");
-        printf("\t\t\t3. Book Ambulance service\n");
-        printf("\t\t\t4. Unbook Ambulance service\n");
-        printf("\t\t\t5. View and book lab tests\n");
-        printf("\t\t\t6. View and book cabin services\n");
-        printf("\t\t\t7. Book appointment\n");
-        printf("\t\t\t8. View appointment\n");
-        printf("\t\t\t9. Clear appointment\n");
-        printf("\t\t\t10. View billing history\n");
-        printf("\t\t\t11. Return to Main Menu\n\n");
+        printf("\t\t\t3. Book and Unbook Ambulance services\n");
+        printf("\t\t\t4. View and book lab tests\n");
+        printf("\t\t\t5. Calculate cabin bill\n");
+        printf("\t\t\t6. Book appointment\n");
+        printf("\t\t\t7. View appointment\n");
+        printf("\t\t\t8. Clear appointment\n");
+        printf("\t\t\t9. View billing history\n");
+        printf("\t\t\t0. Return to Main Menu\n\n");
 
         do
         {
@@ -186,12 +185,12 @@ void support_menu()
             while (getchar() != '\n');  // Clear input buffer
             system("cls");
 
-            if (choice < '1'|| choice > '11')
+            if (choice < '0'|| choice > '10')
             {
-                printf("Invalid mode choice. Please enter a number between 1 and 9.\n");
+                printf("Invalid mode choice. Please enter a number between 0 and 9.\n");
             }
         }
-        while (choice < '1' || choice > '11');
+        while (choice < '0' || choice > '10');
         switch (choice){
         case '1':
              // change password
@@ -211,40 +210,19 @@ void support_menu()
             display_ambulance();
             break;
         case '3':
-            // Book ambulance
-            book_ambulance();
+            merge_ambulance();
             break;
+
         case '4':
-            unbook_ambulance();
-            break;
-        case '5':
             mainMenuforlabtest();
             break;
-        case '10':
-            // book lab test + cabin
-            bookTest();
+        case '5':
+            mainMenuforcabin();
             break;
-        case '9':
-            printf("Enter doctor's name: ");
-            fgets(docname, MAX_USERNAME_LENGTH, stdin);
 
-            // Remove newline character from the doctor's name
-            docname[strcspn(docname, "\n")] = '\0';
-            clear_appointments(docname);
-            break;
-        case '8':
-            // view appointment
-            printf("Enter doctor's name: ");
-            fgets(docname, MAX_USERNAME_LENGTH, stdin);
-
-            // Remove newline character from the doctor's name
-            docname[strcspn(docname, "\n")] = '\0';
-
-            display_appointments(docname);
-            break;
-        case '7':
+        case '6':
             // book appointment
-            printf("Enter doctor's name: ");
+            printf("Enter doctor's username: ");
             fgets(docname, MAX_USERNAME_LENGTH, stdin);
 
             // Remove newline character from the doctor's name
@@ -252,10 +230,31 @@ void support_menu()
 
             add_appointment(docname);
             break;
-        case '6':
-            mainMenuforcabin();
+        case '7':
+            // view appointment
+            printf("Enter doctor's username: ");
+            fgets(docname, MAX_USERNAME_LENGTH, stdin);
+
+            // Remove newline character from the doctor's name
+            docname[strcspn(docname, "\n")] = '\0';
+
+            display_appointments(docname);
             break;
-        case '11':
+        case '8':
+            printf("Enter doctor's username: ");
+            fgets(docname, MAX_USERNAME_LENGTH, stdin);
+
+            // Remove newline character from the doctor's name
+            docname[strcspn(docname, "\n")] = '\0';
+            clear_appointments(docname);
+            break;
+        case '9':
+            viewBillingHistory();
+            break;
+
+
+
+        case '0':
             return;  // Return to Main Menu
 
         default:
@@ -263,14 +262,14 @@ void support_menu()
             break;
         }
 
-        if (choice != '11')
+        if (choice != '10')
         {
             printf("Press any key to continue...\n");
             getchar();  // Wait for a key press
             system("cls");  // Clear screen
         }
     }
-    while (choice != '11');
+    while (choice != '10');
 }
 
 void med_menu()
@@ -279,7 +278,7 @@ void med_menu()
 
     do
     {
-        printf("\t\t\t\t\t\tWelcome to Medical Staff Menu\n\n\n");
+        printf("\n\n\n\t\t\t\t\t\tWelcome to Medical Staff Menu\n\n\n");
         printf("\t\t\t1. Change password\n");
         printf("\t\t\t2. Add Patient\n");
         printf("\t\t\t3. View Patient list\n");
@@ -290,7 +289,7 @@ void med_menu()
 
         do
         {
-            printf("Enter option: ");
+            printf("\t\t\tEnter option: ");
             scanf("%c", &choice);
             while (getchar() != '\n');  // Clear input buffer
             system("cls");

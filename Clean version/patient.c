@@ -33,12 +33,13 @@ void add_patient() {
     // Get the current date
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    snprintf(patient.date, sizeof(patient.date), "%04d-%02d-%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
-
+    //snprintf(patient.date, sizeof(patient.date), "%04d/%02d/%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
+    snprintf(patient.date, sizeof(patient.date), "%02d/%02d/%04d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
     // Prompt the user to enter patient details
     printf("Enter patient details:\n");
     printf("Enter patient name: ");
-    scanf("%s", patient.name);
+    //scanf("%s", patient.name);
+    gets(patient.name);
     printf("\n");
     printf("Enter patient age: ");
     scanf("%s", patient.age);
@@ -213,24 +214,24 @@ void search_patient() {
     for (int i = 0; i < count; i++) {
         if (strcasecmp(patients[i].contact, search_contact) == 0) {
             printf("Patient Record Found:\n");
-            printf("%-50s%-12s%-20s%-30s%-12s\n", "Name", "Age", "Gender", "Contact", "Date");
+            printf("\t%-50s%-12s%-20s%-30s%-12s\n", "Name", "Age", "Gender", "Contact", "Date");
             printf("-----------------------------------------------------------------------------------------------------------------------------\n");
-            printf("%-50s%-12s%-20s%-30s%-12s\n", patients[i].name, patients[i].age, patients[i].gender, patients[i].contact, patients[i].date);
+            printf("\t%-50s%-12s%-20s%-30s%-12s\n", patients[i].name, patients[i].age, patients[i].gender, patients[i].contact, patients[i].date);
             found = 1;
 
             // Ask the user if they want to view patient details
-            char choice[10];
-            printf("Do you want to view patient details? (yes/no): ");
-            scanf("%s", choice);
-
-            if (strcasecmp(choice, "yes") == 0) {
-                // Open the PDF file associated with the patient
-                char pdf_filename[100];
-                snprintf(pdf_filename, sizeof(pdf_filename), "%s.pdf", patients[i].name);
-                char command[150];
-                snprintf(command, sizeof(command), "xdg-open %s", pdf_filename);
-                system(command);
-            }
+//            char choice[10];
+//            printf("Do you want to view patient details? (yes/no): ");
+//            scanf("%s", choice);
+//
+//            if (strcasecmp(choice, "yes") == 0) {
+//                // Open the PDF file associated with the patient
+//                char pdf_filename[100];
+//                snprintf(pdf_filename, sizeof(pdf_filename), "%s.pdf", patients[i].name);
+//                char command[150];
+//                snprintf(command, sizeof(command), "xdg-open %s", pdf_filename);
+//                system(command);
+//            }
 
             // Prompt to press Enter before clearing the screen
             printf("Press Enter to continue...");

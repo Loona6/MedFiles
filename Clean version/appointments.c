@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <dirent.h>
+
 #include <sys/stat.h>
 #include <time.h>
 
@@ -140,7 +140,7 @@ void add_appointment(const char* username) {
     fgets(appt.contact, sizeof(appt.contact), stdin);
     appt.contact[strcspn(appt.contact, "\n")] = 0;
 
-    printf("Enter appointment date (YYYY-MM-DD): ");
+    printf("Enter appointment date (YYYY/MM/DD): ");
     fgets(appt.date, sizeof(appt.date), stdin);
     appt.date[strcspn(appt.date, "\n")] = 0;
 
@@ -196,7 +196,7 @@ void display_appointments(const char* username) {
         char line[256];
         int firstLine = 1;
         printf("Current Appointments:\n\n");
-        printf("%-30s%-22s%-15s%-15s%-100s\n", "Patient Name", "Contact", "Date", "Time", "Description");
+        printf("\t%-30s%-22s%-15s%-15s%-100s\n", "Patient Name", "Contact", "Date", "Time", "Description");
         printf("-------------------------------------------------------------------------------------------------------------------\n");
         while (fgets(line, sizeof(line), file)) {
             if (firstLine) { // Skip the header line
@@ -205,14 +205,14 @@ void display_appointments(const char* username) {
             }
             Appointment appt;
             sscanf(line, "%49[^,],%19[^,],%14[^,],%9[^,],%99[^\n]", appt.name, appt.contact, appt.date, appt.time, appt.description);
-            printf("%-30s%-22s%-15s%-15s%-100s\n", appt.name, appt.contact, appt.date, appt.time, appt.description);
+            printf("\t%-30s%-22s%-15s%-15s%-100s\n", appt.name, appt.contact, appt.date, appt.time, appt.description);
         }
         fclose(file);
     } else {
         perror("Error opening file");
     }
     free(filename);
-    printf("Press Enter to continue...");
+    printf("\n\n\t\tPress Enter to continue...");
     clear_input_buffer();
     getchar(); // Wait for Enter key
 }

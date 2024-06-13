@@ -1,0 +1,13 @@
+Patient's name: Rahatut
+Total bill:
+Blood Test(s): 1 x 500 = 500 taka
+Ultrasound(s): 1 x 2000 = 2000 taka
+Total Bill: 2500 taka
+Patient's name: Maisha
+Total bill:
+Blood Test(s): 1 x 500 = 500 taka
+Total Bill: 500 taka
+Patient's name: Rahatut
+Total bill:
+Blood Test(s): 1 x 500 = 500 taka
+Total Bill: 500 taka

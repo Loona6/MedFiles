@@ -32,7 +32,7 @@ void add_doctor() {
   char first_name[500];
   char last_name[500];
   char user_id[MAX_ID_LENGTH];
-
+    char pass_hash[65];
   printf("Enter doctor's first name: ");
   scanf("%s", first_name);
   printf("Enter doctor's last name: ");
@@ -42,7 +42,7 @@ void add_doctor() {
   printf("Enter doctor's password: ");
   char pass[100];
   scanf("%s", pass);
-
+    hashPassword(pass, pass_hash);
   FILE *f = fopen("Medical_credentials.txt", "a");
   if (f == NULL) {
     f = fopen("Medical_credentials.txt", "w");
@@ -51,7 +51,7 @@ void add_doctor() {
       return;
     }
   }
-  fprintf(f, "%s,%s\n", user_id, pass);
+  fprintf(f, "%s,%s\n", user_id, pass_hash);
   fclose(f);
 
   FILE *file = fopen(FILENAME2, "a");
@@ -82,7 +82,7 @@ void add_staff() {
     char first_name[500];
     char last_name[500];
     char user_id[MAX_ID_LENGTH];
-
+    char pass_hash[65];
     printf("Enter staff's first name: ");
     scanf("%s", first_name);
     printf("Enter staff's last name: ");
@@ -92,7 +92,7 @@ void add_staff() {
     printf("Enter staff's password: ");
     char pass[100];
     scanf("%s", pass);
-
+    hashPassword(pass, pass_hash);
       FILE *f = fopen("Support_credentials.txt", "a");
       if (f == NULL) {
         f = fopen("Support_credentials.txt", "w");
@@ -101,7 +101,7 @@ void add_staff() {
           return;
         }
       }
-      fprintf(f, "%s,%s\n", user_id, pass);
+      fprintf(f, "%s,%s\n", user_id, pass_hash);
       fclose(f);
 
     FILE *file = fopen(FILENAME3, "a");
@@ -131,9 +131,9 @@ void add_staff() {
 void add_ambulance() {
     printf("Enter ambulance details:\n");
     for (int i = 0; i < MAX_AMBULANCES; i++) {
-        printf("Enter ambulance number for Ambulance %d: ", i + 1);
+        printf("Enter ambulance number for Ambulance: ");
         scanf("%s", ambulances[i].number);
-        printf("Enter contact number for Ambulance %d: ", i + 1);
+        printf("Enter contact number for Ambulance: " );
         scanf("%s", ambulances[i].contact);
         strcpy(ambulances[i].status, "Unbooked"); // Set status to unbooked
     }
@@ -151,6 +151,10 @@ void add_ambulance() {
     fclose(file);
     printf("Ambulance services added successfully.\n");
 
+
+
+
+
     // Prompt to press Enter before clearing screen
     printf("Press Enter to continue...");
     getchar(); // Clear input buffer
@@ -165,7 +169,7 @@ void delete_ambulance() {
     int found = 0;
 
     printf("Enter the ambulance ID to delete: ");
-    scanf("%19s", ambulance_id); // Limit input length to prevent buffer overflow
+    scanf("%19s", ambulance_id);
 
     FILE *file = fopen(FILENAME, "r");
     if (file == NULL) {
@@ -251,13 +255,13 @@ void display_doctors() {
         return;
     }
 
-    printf("Doctors:\n");
-    printf("%-20s%-20s%s\n", "First Name", "Last Name", "User ID");
-    printf("-------------------------------------------------------------\n");
+    printf("\n\n\t\t\t\tDoctors:\n\n\n");
+    printf("\t\t%-30s%-30s%s\n", "First Name", "Last Name", "User ID");
+    printf("------------------------------------------------------------------------------------\n");
 
     while (fscanf(file, "%[^,],%[^,],%s\n", doctor.first_name, doctor.last_name, doctor.user_id) != EOF) {
         count++;
-        printf("%-20s%-20s%s\n", doctor.first_name, doctor.last_name, doctor.user_id);
+        printf("\t\t%-30s%-30s%s\n", doctor.first_name, doctor.last_name, doctor.user_id);
     }
 
     fclose(file);
@@ -267,7 +271,7 @@ void display_doctors() {
     }
 
     // Prompt to press Enter before clearing screen
-    printf("Press Enter to continue...");
+    printf("\n\n\t\t\tPress Enter to continue...");
     getchar(); // Clear input buffer
     getchar(); // Wait for Enter key
 
@@ -297,13 +301,13 @@ void display_staff() {
         return;
     }
 
-    printf("Staff Members:\n");
-    printf("%-20s%-20s%s\n", "First Name", "Last Name", "User ID");
-    printf("-------------------------------------------------------------\n");
+    printf("\n\n\t\t\t\t\tStaff Members:\n\n\n\n");
+    printf("\t\t%-30s%-30s%s\n", "First Name", "Last Name", "User ID");
+    printf("--------------------------------------------------------------------------------------\n");
 
     while (fscanf(file, "%[^,],%[^,],%s\n", staff.first_name, staff.last_name, staff.user_id) != EOF) {
         count++;
-        printf("%-20s%-20s%s\n", staff.first_name, staff.last_name, staff.user_id);
+        printf("\t\t%-30s%-30s%s\n", staff.first_name, staff.last_name, staff.user_id);
     }
 
     fclose(file);
@@ -313,7 +317,7 @@ void display_staff() {
     }
 
     // Prompt to press Enter before clearing screen
-    printf("Press Enter to continue...");
+    printf("\n\n\t\tPress Enter to continue...");
     getchar(); // Clear input buffer
     getchar(); // Wait for Enter key
 
@@ -336,9 +340,9 @@ void display_ambulance() {
         rewind(file);  // Reset file pointer if no header
     }
 
-    printf("Ambulance Services:\n");
-    printf("%-20s%-20s%-20s\n", "ID", "Contact", "Status");
-    printf("-------------------------------------------------------------\n");
+    printf("\n\n\t\t\t\tAmbulance Services:\n\n\n\n");
+    printf("\t%-30s%-30s%-30s\n", "ID", "Contact", "Status");
+    printf("-------------------------------------------------------------------------------\n");
     char line[1024];
 
     while (fgets(line, sizeof(line), file) != NULL) {
@@ -352,7 +356,7 @@ void display_ambulance() {
         token = strtok(NULL, ",");
         if (token != NULL) strcpy(ambulance.status, token);
         count++;
-        printf("%-20s%-20s%-20s\n", ambulance.number, ambulance.contact, ambulance.status);
+        printf("\t%-30s%-30s%-30s\n", ambulance.number, ambulance.contact, ambulance.status);
     }
 
     fclose(file);
@@ -362,7 +366,7 @@ void display_ambulance() {
     }
 
     // Prompt to press Enter before clearing screen
-    printf("Press Enter to continue...");
+    printf("\n\n\t\tPress Enter to continue...");
     getchar(); // Clear input buffer
     getchar(); // Wait for Enter key
 
@@ -489,4 +493,42 @@ void unbook_ambulance() {
     getchar(); // Wait for Enter key
 
     clear_screen(); // Clear screen after operation
+}
+
+void merge_ambulance()
+{
+    printf("\n\n\t\t\tAmbulance services:\n\n");
+    printf("\t\t\t1.Book Ambulance\n");
+    printf("\t\t\t2.Unbook Ambulance\n\n");
+    //printf("\t\t\tEnter option:");
+
+    char ch;
+    //scanf("%c",&ch);
+
+    do
+    {
+        printf("\t\t\tEnter option: ");
+        scanf("%c", &ch);
+        while (getchar() != '\n');  // Clear input buffer
+        system("cls");
+
+        if (ch < '1'|| ch > '2')
+        {
+            printf("\t\t\tInvalid mode choice.\n");
+        }
+    }
+    while (ch < '1' || ch > '2');
+    switch (ch)
+    {
+    case '1':
+        // Book ambulance
+        book_ambulance();
+        break;
+    case '2':
+        unbook_ambulance();
+        break;
+    default:
+        printf("Invalid choice.\n");
+        break;
+    }
 }

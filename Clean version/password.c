@@ -1,8 +1,9 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <time.h>
+#include <conio.h> // Include for getch()
 #include "sha256.h"
 
 #define HASH_LENGTH 64 // SHA-256 produces 64-character hash
@@ -29,9 +30,32 @@ void hashPassword(const char *password, char *hash) {
 
 int verifyPassword(const char *input_password, const char *stored_hash) {
     char input_hash[HASH_LENGTH + 1]; // Room for hexadecimal hash + null terminator
+
     hashPassword(input_password, input_hash);
-    printf("input:%s\nstored:%s\n", input_hash, stored_hash);
+    //printf("%s %s",input_hash, stored_hash);
     return strcmp(input_hash, stored_hash) == 0;
+}
+
+void getPassword(char *password) {
+    int index = 0;
+    char ch;
+    while (1) {
+        ch = getch(); // read a character without echoing it
+        if (ch == '\r' || ch == '\n') { // 'Enter' key, end input
+            password[index] = '\0'; // null-terminate the string
+            break;
+        } else if (ch == '\b') { // 'Backspace' key, delete the last character
+            if (index > 0) {
+                index--;
+                printf("\b \b"); // move cursor back, overwrite with space, move cursor back again
+            }
+        } else {
+            password[index] = ch;
+            index++;
+            printf("*"); // display an asterisk
+        }
+    }
+    printf("\n");
 }
 
 int login(const char *mode) {
@@ -86,18 +110,20 @@ int login(const char *mode) {
     if (fgets(username, MAX_USERNAME_LENGTH, stdin) != NULL) {
         username[strcspn(username, "\n")] = '\0'; // Remove newline character
     }
-
-    // Prompt user for password
     printf("Enter password: ");
-    if (fgets(password, MAX_PASSWORD_LENGTH, stdin) != NULL) {
-        password[strcspn(password, "\n")] = '\0'; // Remove newline character
-    }
+    // Prompt user for password
+    getPassword(password);
 
     // Check if the entered username and password match any of the correct ones
     for (int i = 0; i < num_users; i++) {
         if (strcmp(username, correct_usernames[i]) == 0 && verifyPassword(password, correct_password_hashes[i])) {
             printf("Login successful! Welcome, %s.\n", username);
             strcpy(logged_in_username, username);
+            printf("Press Enter to continue...");
+            getchar(); // Clear input buffer
+            getchar(); // Wait for Enter key
+
+            clear_screen(); // Clear screen after operation
             return 1; // Exit the function
         }
     }
@@ -106,11 +132,11 @@ int login(const char *mode) {
     printf("Incorrect username or password.\n");
     return 0;
 }
-
 void change_password(const char *mode, const char *logged_in_username, const char *target_username) {
     // Define variables
     char new_password[MAX_PASSWORD_LENGTH];
     char line[MAX_LINE_LENGTH]; // Buffer to read each line from the file
+    int user_found = 0; // Flag to track if the target username was found
 
     // Open the file containing correct usernames and hashed passwords
     FILE *file;
@@ -151,6 +177,7 @@ void change_password(const char *mode, const char *logged_in_username, const cha
         char *line_copy = strdup(line);
         char *token = strtok(line_copy, ",");
         if (token != NULL && strcmp(token, target_username) == 0) {
+            user_found = 1; // Set the flag to indicate that the user was found
             // If the username matches the target username, prompt the user to enter a new password
             if (strcmp(logged_in_username, target_username) != 0) {
                 // If the logged-in username does not match the target username, display an error message
@@ -160,9 +187,7 @@ void change_password(const char *mode, const char *logged_in_username, const cha
             } else {
                 // Prompt the user to enter a new password
                 printf("Enter new password for %s: ", target_username);
-                if (fgets(new_password, MAX_PASSWORD_LENGTH, stdin) != NULL) {
-                    new_password[strcspn(new_password, "\n")] = '\0'; // Remove newline character
-                }
+                getPassword(new_password);
 
                 // Hash the new password
                 char new_password_hash[HASH_LENGTH + 1];
@@ -185,19 +210,25 @@ void change_password(const char *mode, const char *logged_in_username, const cha
     fclose(file);
     fclose(temp_file);
 
-    // Replace the original file with the temporary file
-    if (strcmp(mode, "Admin") == 0) {
-        remove("Admin_credentials.txt"); // Remove original file
-        rename("temp.txt", "Admin_credentials.txt"); // Rename temporary file
-    } else if (strcmp(mode, "Medical") == 0) {
-        remove("Medical_credentials.txt"); // Remove original file
-        rename("temp.txt", "Medical_credentials.txt"); // Rename temporary file
-    } else if (strcmp(mode, "Support") == 0) {
-        remove("Support_credentials.txt"); // Remove original file
-        rename("temp.txt", "Support_credentials.txt"); // Rename temporary file
+    // Check if the target username was not found
+    if (!user_found) {
+        printf("User %s does not exist.\n", target_username);
+        // Remove the temporary file as no changes were made
+        remove("temp.txt");
+    } else {
+        // Replace the original file with the temporary file
+        if (strcmp(mode, "Admin") == 0) {
+            remove("Admin_credentials.txt"); // Remove original file
+            rename("temp.txt", "Admin_credentials.txt"); // Rename temporary file
+        } else if (strcmp(mode, "Medical") == 0) {
+            remove("Medical_credentials.txt"); // Remove original file
+            rename("temp.txt", "Medical_credentials.txt"); // Rename temporary file
+        } else if (strcmp(mode, "Support") == 0) {
+            remove("Support_credentials.txt"); // Remove original file
+            rename("temp.txt", "Support_credentials.txt"); // Rename temporary file
+        }
     }
 }
-
 const char* namesender() {
     return logged_in_username;
 }
