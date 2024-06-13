@@ -1,0 +1,182 @@
+# depslib dependency file v1.0
+1717677580 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\admin menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1717669016 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\clinical notes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<sys/stat.h>
+	<sys/types.h>
+	"pdfgen.h"
+
+1717677434 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\primary login.c
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+	<stdlib.h>
+
+1717657462 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\medfiles\main.c
+	<stdio.h>
+	<stdlib.h>
+	<Windows.h>
+	<unistd.h>
+	"pdfgen.h"
+
+1717657552 e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\medfiles\pdfgen.h
+	<stdint.h>
+	<stdio.h>
+	"pdfgen.h"
+
+1717657558 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\medfiles\pdfgen.c
+	<BaseTsd.h>
+	<sys/types.h>
+	<ctype.h>
+	<errno.h>
+	<inttypes.h>
+	<limits.h>
+	<locale.h>
+	<math.h>
+	<stdarg.h>
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sys/stat.h>
+	<time.h>
+	"pdfgen.h"
+	<strings.h>
+	<endian.h>
+	<machine/endian.h>
+	<sys/param.h>
+	<sys/isadefs.h>
+
+1717605919 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\medfiles\sha256.c
+	<stdint.h>
+	<string.h>
+	"sha256.h"
+
+1717605366 e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\medfiles\sha256.h
+	<stdint.h>
+
+1717615517 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\appointments.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<dirent.h>
+	<sys/stat.h>
+	<time.h>
+
+1717664643 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\password.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdint.h>
+	<time.h>
+	"sha256.h"
+
+1717504420 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\patient.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+
+1717677218 source:e:\coding\codeblocks\mingw\bin\lab final project\medfiles\medfiles\clean version\support menu.c
+	<stdio.h>
+	<stdbool.h>
+	<string.h>
+
+1717703521 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\admin menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1717706361 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\appointments.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sys/stat.h>
+	<time.h>
+
+1717706209 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\clinical notes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<sys/stat.h>
+	"pdfgen.h"
+
+1717708418 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\password.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdint.h>
+	<conio.h>
+	"sha256.h"
+
+1717699102 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\patient.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+
+1717708457 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\primary login.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1717708197 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\support menu.c
+	<stdio.h>
+	<stdbool.h>
+	<string.h>
+
+1717678598 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\medfiles\main.c
+	<stdio.h>
+	<stdlib.h>
+	<Windows.h>
+	<unistd.h>
+	"pdfgen.h"
+
+1717678598 c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\medfiles\pdfgen.h
+	<stdint.h>
+	<stdio.h>
+	"pdfgen.h"
+
+1717678598 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\medfiles\pdfgen.c
+	<BaseTsd.h>
+	<sys/types.h>
+	<ctype.h>
+	<errno.h>
+	<inttypes.h>
+	<limits.h>
+	<locale.h>
+	<math.h>
+	<stdarg.h>
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sys/stat.h>
+	<time.h>
+	"pdfgen.h"
+	<strings.h>
+	<endian.h>
+	<machine/endian.h>
+	<sys/param.h>
+	<sys/isadefs.h>
+
+1717678598 source:c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\medfiles\sha256.c
+	<stdint.h>
+	<string.h>
+	"sha256.h"
+
+1717678598 c:\users\maisha128\onedrive\desktop\final final project\medfiles\clean version\medfiles\sha256.h
+	<stdint.h>
+

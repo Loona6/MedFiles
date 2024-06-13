@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MEDFILES" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/MEDFILES" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/MEDFILES" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../admin menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../appointments.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../clinical notes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../password.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../patient.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../primary login.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../support menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="MEDFILES.cbp" />
+		<Unit filename="Medical_credentials.txt" />
+		<Unit filename="Support_credentials.txt" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pdfgen.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pdfgen.h" />
+		<Unit filename="sha256.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="sha256.h" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
