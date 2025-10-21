@@ -1,0 +1,90 @@
+# depslib dependency file v1.0
+1738152450 source:e:\project\medfiles(1-2)\admin menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1738152671 source:e:\project\medfiles(1-2)\appointments.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sys/stat.h>
+	<time.h>
+
+1738152695 source:e:\project\medfiles(1-2)\patient.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+
+1738152522 source:e:\project\medfiles(1-2)\primary login.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1738152632 source:e:\project\medfiles(1-2)\support menu.c
+	<stdio.h>
+	<stdbool.h>
+	<string.h>
+
+1738152750 source:e:\project\medfiles(1-2)\clinical notes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<sys/stat.h>
+	"pdfgen.h"
+
+1717678598 e:\project\medfiles(1-2)\pdfgen.h
+	<stdint.h>
+	<stdio.h>
+	"pdfgen.h"
+
+1738152450 source:e:\project\medfiles(1-2)\main.c
+	<stdio.h>
+	<stdlib.h>
+	<Windows.h>
+	<unistd.h>
+	"pdfgen.h"
+
+1738154187 source:e:\project\medfiles(1-2)\password.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdint.h>
+	<conio.h>
+	"sha256.h"
+
+1717678598 e:\project\medfiles(1-2)\sha256.h
+	<stdint.h>
+
+1738152858 source:e:\project\medfiles(1-2)\sha256.c
+	<stdint.h>
+	<string.h>
+	"sha256.h"
+
+1738152926 source:e:\project\medfiles(1-2)\pdfgen.c
+	<BaseTsd.h>
+	<sys/types.h>
+	<ctype.h>
+	<errno.h>
+	<inttypes.h>
+	<limits.h>
+	<locale.h>
+	<math.h>
+	<stdarg.h>
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sys/stat.h>
+	<time.h>
+	"pdfgen.h"
+	<strings.h>
+	<endian.h>
+	<machine/endian.h>
+	<sys/param.h>
+	<sys/isadefs.h>
+
