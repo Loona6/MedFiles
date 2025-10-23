@@ -8,7 +8,6 @@
 - [Overview](#overview)
 - [Features](#features)
 - [How to Run](#how-to-run)
-- [Sample Operations](#sample-operations)
 - [Future Improvements](#future-improvements)
 - [Contributors](#contributors)
 - [License](#license)
@@ -21,7 +20,7 @@
 
 ---
 
-## ⚙️ Key Features 
+## ⚙️ Features 
 
 ### 👩‍💼 Admin Mode
 
