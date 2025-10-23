@@ -89,6 +89,9 @@ If you prefer using the terminal or another compiler:
 
 ## 👩‍💻 Contributors
 
+@Loona6
+@Rahatut
+@sasasaee
 
 
 ---
