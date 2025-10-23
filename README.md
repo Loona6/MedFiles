@@ -89,10 +89,9 @@ If you prefer using the terminal or another compiler:
 
 ## 👩‍💻 Contributors
 
-@Loona6
-@Rahatut
-@sasasaee
-
+- [@Loona6](https://github.com/Loona6)
+- [@sasasaee](https://github.com/sasasaee)
+- [@Rahatut](https://github.com/Rahatut)
 
 ---
 
